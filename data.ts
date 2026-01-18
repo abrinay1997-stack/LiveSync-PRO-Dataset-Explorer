@@ -5,6 +5,7 @@ import { psychoData } from './data_psychoacoustics';
 import { cableData } from './data_cables';
 import { lisaData } from './data_lisa';
 import { audienceData } from './data_audience';
+import { measurementData } from './data_measurement';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -12,7 +13,8 @@ export const acousticDataset: Concept[] = [
   ...psychoData,
   ...cableData,
   ...lisaData,
-  ...audienceData
+  ...audienceData,
+  ...measurementData
 ];
 
 // Cálculo de estadísticas para validación de integridad
