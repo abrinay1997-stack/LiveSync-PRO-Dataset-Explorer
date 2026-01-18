@@ -15,6 +15,7 @@ import { networkingData } from './data_networking';
 import { subPollutionData } from './data_sub_pollution';
 import { systuneManualData } from './data_systune_manual';
 import { easeManualData } from './data_ease_manual';
+import { easeFocusData } from './data_ease_focus';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -32,7 +33,8 @@ export const acousticDataset: Concept[] = [
   ...networkingData,
   ...subPollutionData,
   ...systuneManualData,
-  ...easeManualData
+  ...easeManualData,
+  ...easeFocusData
 ];
 
 // Cálculo de estadísticas para validación de integridad

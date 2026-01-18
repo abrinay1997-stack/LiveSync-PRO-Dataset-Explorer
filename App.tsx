@@ -115,11 +115,11 @@ export default function App() {
             <h1 className="text-5xl font-black text-white tracking-tighter">
               LiveSync <span className="text-blue-500">PRO</span>
             </h1>
-            <p className="text-slate-500 mt-2 font-medium">Knowledge Base Management System v1.1</p>
+            <p className="text-slate-500 mt-2 font-medium">Knowledge Base Management System v1.2</p>
           </div>
           <div className="hidden md:block text-right">
             <div className="text-xs text-slate-600 uppercase tracking-widest font-bold">Última actualización</div>
-            <div className="text-slate-400 font-mono">2024.05.24.REF</div>
+            <div className="text-slate-400 font-mono">2024.05.25.PRED</div>
           </div>
         </div>
 
@@ -162,7 +162,7 @@ export default function App() {
       </main>
 
       <footer className="mt-20 py-12 border-t border-slate-900 flex justify-between items-center text-slate-600 text-[10px] uppercase tracking-widest">
-        <span>Acoustic Intel Aggregator</span>
+        <span>Predictive Acoustic Explorer</span>
         <span>Integridad de datos garantizada por estructura modular</span>
         <span>© 2024</span>
       </footer>
