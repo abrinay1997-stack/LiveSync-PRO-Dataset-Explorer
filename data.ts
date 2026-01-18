@@ -9,6 +9,7 @@ import { measurementData } from './data_measurement';
 import { hfMeasurementData } from './data_hf_measurement';
 import { optimumLocationsData } from './data_optimum_locations';
 import { spatialFillsData } from './data_spatial_fills';
+import { combFilteringData } from './data_comb_filtering';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -20,7 +21,8 @@ export const acousticDataset: Concept[] = [
   ...measurementData,
   ...hfMeasurementData,
   ...optimumLocationsData,
-  ...spatialFillsData
+  ...spatialFillsData,
+  ...combFilteringData
 ];
 
 // Cálculo de estadísticas para validación de integridad

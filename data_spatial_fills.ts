@@ -115,7 +115,7 @@ export const spatialFillsData: Concept[] = [
     "fuente": { "documento": "L-ISA Hyperreal Sound: Optimizing coverage and spatial rendering for fill systems", "año": 2020 },
     "contenido_tecnico": {
       "definicion_detallada": "Comparativa de rendimiento entre soluciones para sistemas de relleno. Solo Spatial-fills (S-Fills) logra un equilibrio óptimo entre los tres criterios fundamentales.",
-      "formula_latex": "$$ S\\text{-Fills} = \\text{opt}(\\text{Homog}, \\text{Unmask}, \\text{Consist\_AV}) $$",
+      "formula_latex": "$$ S\\text{-Fills} = \\text{opt}(\\text{Homog}, \\text{Unmask}, \\text{Consist\\_AV}) $$",
       "variables": {},
       "restricciones": "Las soluciones Mono priorizan solo homogeneidad; WFS (Delay-based) prioriza consistencia AV a costa de homogeneidad de nivel."
     },
