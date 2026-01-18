@@ -6,6 +6,7 @@ import { cableData } from './data_cables';
 import { lisaData } from './data_lisa';
 import { audienceData } from './data_audience';
 import { measurementData } from './data_measurement';
+import { hfMeasurementData } from './data_hf_measurement';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -14,7 +15,8 @@ export const acousticDataset: Concept[] = [
   ...cableData,
   ...lisaData,
   ...audienceData,
-  ...measurementData
+  ...measurementData,
+  ...hfMeasurementData
 ];
 
 // Cálculo de estadísticas para validación de integridad
