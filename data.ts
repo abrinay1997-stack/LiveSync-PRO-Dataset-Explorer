@@ -12,6 +12,7 @@ import { spatialFillsData } from './data_spatial_fills';
 import { combFilteringData } from './data_comb_filtering';
 import { distributedFillsData } from './data_distributed_fills';
 import { networkingData } from './data_networking';
+import { subPollutionData } from './data_sub_pollution';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -26,7 +27,8 @@ export const acousticDataset: Concept[] = [
   ...spatialFillsData,
   ...combFilteringData,
   ...distributedFillsData,
-  ...networkingData
+  ...networkingData,
+  ...subPollutionData
 ];
 
 // Cálculo de estadísticas para validación de integridad
