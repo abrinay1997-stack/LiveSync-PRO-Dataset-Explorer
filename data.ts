@@ -11,6 +11,7 @@ import { optimumLocationsData } from './data_optimum_locations';
 import { spatialFillsData } from './data_spatial_fills';
 import { combFilteringData } from './data_comb_filtering';
 import { distributedFillsData } from './data_distributed_fills';
+import { networkingData } from './data_networking';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -24,7 +25,8 @@ export const acousticDataset: Concept[] = [
   ...optimumLocationsData,
   ...spatialFillsData,
   ...combFilteringData,
-  ...distributedFillsData
+  ...distributedFillsData,
+  ...networkingData
 ];
 
 // Cálculo de estadísticas para validación de integridad
