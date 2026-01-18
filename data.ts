@@ -3,12 +3,14 @@ import { Concept, DatasetStats } from './types';
 import { physicsData } from './data_physics';
 import { psychoData } from './data_psychoacoustics';
 import { cableData } from './data_cables';
+import { lisaData } from './data_lisa';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
   ...physicsData,
   ...psychoData,
-  ...cableData
+  ...cableData,
+  ...lisaData
 ];
 
 // Cálculo de estadísticas para validación de integridad
