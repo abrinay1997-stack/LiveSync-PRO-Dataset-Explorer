@@ -14,6 +14,7 @@ import { distributedFillsData } from './data_distributed_fills';
 import { networkingData } from './data_networking';
 import { subPollutionData } from './data_sub_pollution';
 import { systuneManualData } from './data_systune_manual';
+import { easeManualData } from './data_ease_manual';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -30,7 +31,8 @@ export const acousticDataset: Concept[] = [
   ...distributedFillsData,
   ...networkingData,
   ...subPollutionData,
-  ...systuneManualData
+  ...systuneManualData,
+  ...easeManualData
 ];
 
 // Cálculo de estadísticas para validación de integridad
