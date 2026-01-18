@@ -7,6 +7,7 @@ import { lisaData } from './data_lisa';
 import { audienceData } from './data_audience';
 import { measurementData } from './data_measurement';
 import { hfMeasurementData } from './data_hf_measurement';
+import { optimumLocationsData } from './data_optimum_locations';
 
 // Agregación de todos los módulos
 export const acousticDataset: Concept[] = [
@@ -16,7 +17,8 @@ export const acousticDataset: Concept[] = [
   ...lisaData,
   ...audienceData,
   ...measurementData,
-  ...hfMeasurementData
+  ...hfMeasurementData,
+  ...optimumLocationsData
 ];
 
 // Cálculo de estadísticas para validación de integridad
