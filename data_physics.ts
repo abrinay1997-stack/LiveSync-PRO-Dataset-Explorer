@@ -7,7 +7,7 @@ export const physicsData: Concept[] = [
     "categoria": "Física Ondulatoria",
     "tipo": "Fórmula",
     "titulo": "Velocidad Efectiva del Sonido (Viento)",
-    "fuente": { "documento": "Atmospheric Propagation Study / AES 2021", "año": 2021 },
+    "fuente": { "documento": "LiveSync Pro Atmospheric Study", "año": 2021 },
     "contenido_tecnico": {
       "definicion_detallada": "Alteración de la propagación por la componente vectorial del viento.",
       "formula_latex": "$$ c(z) = c_0 + v(z) \\cos(\\alpha) $$",
@@ -22,7 +22,7 @@ export const physicsData: Concept[] = [
     "categoria": "Meteorología / Acústica Ambiental",
     "tipo": "Fórmula",
     "titulo": "Perfil Logarítmico de Velocidad de Viento",
-    "fuente": { "documento": "Comparison of flown and ground-stacked subwoofer configurations", "año": 2021, "autor": "AES eq. 3" },
+    "fuente": { "documento": "LiveSync Pro Subwoofer Configuration Study", "año": 2021, "autor": "LiveSync Pro Engineering" },
     "contenido_tecnico": {
       "definicion_detallada": "Describe cómo aumenta la velocidad del viento con la altura, influenciada por la rugosidad del terreno.",
       "formula_latex": "$$ v(z) = v_m \\frac{\\ln(z/z_0 + 1)}{\\ln(z_m/z_0 + 1)} $$",
