@@ -27,63 +27,92 @@ const MathRenderer: React.FC<{ tex: string }> = ({ tex }) => {
     renderMath();
   }, [tex]);
 
-  if (!html) return <div className="h-12 flex items-center justify-center text-slate-700">...</div>;
-  return <div className="my-4 py-2 overflow-x-auto" dangerouslySetInnerHTML={{ __html: html }} />;
+  if (!html) return <div className="h-12 flex items-center justify-center text-slate-800">...</div>;
+  return <div className="my-6 py-4 overflow-x-auto font-mono text-lg border-y border-white/5" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
-const StatsBar: React.FC = () => {
-  const stats = useMemo(() => getDatasetStats(), []);
+const ReadingProgress = () => {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const mainArea = document.getElementById('main-content');
+    if (!mainArea) return;
+
+    const handleScroll = () => {
+      const scrollHeight = mainArea.scrollHeight - mainArea.clientHeight;
+      const progress = (mainArea.scrollTop / scrollHeight) * 100;
+      setWidth(progress);
+    };
+
+    mainArea.addEventListener('scroll', handleScroll);
+    return () => mainArea.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-      <div className="bg-slate-900/50 border border-slate-800 p-4 rounded-xl text-center">
-        <div className="text-2xl font-black text-white">{stats.total}</div>
-        <div className="text-[10px] text-slate-500 uppercase tracking-widest">Total Conceptos</div>
-      </div>
-      {Object.entries(stats.porTipo).map(([tipo, count]) => (
-        <div key={tipo} className="bg-slate-900/50 border border-slate-800 p-4 rounded-xl text-center">
-          <div className="text-xl font-bold text-blue-400">{count}</div>
-          <div className="text-[10px] text-slate-500 uppercase tracking-widest">{tipo}s</div>
-        </div>
-      ))}
+    <div className="fixed top-0 left-0 w-full h-[2px] bg-white/5 z-[100]">
+      <div 
+        className="h-full bg-gradient-to-r from-cyan-400 via-cyan-500 to-purple-500 transition-all duration-150"
+        style={{ width: `${width}%` }}
+      />
     </div>
   );
 };
 
-const ConceptCard: React.FC<{ concept: Concept }> = ({ concept }) => {
-  const colorMap: Record<ConceptType, string> = {
-    'Fórmula': 'border-blue-500/30 text-blue-400',
-    'Definición': 'border-emerald-500/30 text-emerald-400',
-    'Constante': 'border-amber-500/30 text-amber-400',
-    'Hallazgo': 'border-purple-500/30 text-purple-400'
-  };
-
+const ConceptCard: React.FC<{ concept: Concept; index: number }> = ({ concept, index }) => {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-slate-600 transition-all flex flex-col h-full">
-      <div className="flex justify-between items-start mb-2">
-        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-tighter">
-          {concept.id_concepto} • v{concept.version_dataset}
-        </span>
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${colorMap[concept.tipo] || ''}`}>
+    <div 
+      className="bg-[#0f0f0f] border border-white/5 rounded-2xl p-8 hover:border-cyan-500/30 transition-all duration-300 group flex flex-col h-full animate-slide-up"
+      style={{ animationDelay: `${index * 50}ms` }}
+    >
+      <div className="flex justify-between items-start mb-6">
+        <div className="flex flex-col">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">
+            ID: {concept.id_concepto}
+          </span>
+          <div className="flex gap-2 items-center">
+            <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4]"></div>
+            <span className="text-[10px] font-black text-cyan-500 uppercase tracking-[0.2em]">
+              v{concept.version_dataset}
+            </span>
+          </div>
+        </div>
+        <span className="text-[10px] font-bold px-3 py-1 rounded-full border border-white/10 bg-white/5 text-white uppercase tracking-widest">
           {concept.tipo}
         </span>
       </div>
       
-      <h3 className="text-lg font-bold text-white mb-1">{concept.titulo}</h3>
-      <p className="text-xs text-blue-400/80 mb-4 italic">{concept.fuente.documento} ({concept.fuente.año})</p>
+      <h3 className="text-2xl font-black text-white mb-2 tracking-tighter leading-tight group-hover:text-cyan-400 transition-colors">
+        {concept.titulo}
+      </h3>
+      <p className="text-[11px] text-purple-400 font-bold uppercase tracking-widest mb-6 opacity-70">
+        {concept.fuente.documento} • {concept.fuente.año}
+      </p>
       
       <div className="flex-1">
-        <p className="text-slate-400 text-sm mb-4 leading-relaxed">{concept.contenido_tecnico.definicion_detallada}</p>
+        <p className="text-slate-400 text-base mb-6 leading-relaxed">
+          {concept.contenido_tecnico.definicion_detallada.split(' ').map((word, i) => (
+            <span key={i} className={i % 7 === 0 ? "border-b border-dotted border-cyan-500/40 cursor-help" : ""}>
+              {word}{' '}
+            </span>
+          ))}
+        </p>
         <MathRenderer tex={concept.contenido_tecnico.formula_latex} />
       </div>
 
-      <div className="mt-4 pt-4 border-t border-slate-800 grid grid-cols-2 gap-2">
-        <div className="text-[10px] text-slate-500">
-          <span className="block font-bold text-slate-400 mb-1 tracking-widest uppercase">Variables</span>
-          {Object.keys(concept.contenido_tecnico.variables).join(', ')}
+      <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-2 gap-4">
+        <div>
+          <span className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Variables</span>
+          <div className="flex flex-wrap gap-1">
+            {Object.keys(concept.contenido_tecnico.variables).map(v => (
+              <code key={v} className="text-[10px] font-mono text-cyan-400 bg-cyan-500/5 px-1.5 py-0.5 rounded border border-cyan-500/10">
+                {v}
+              </code>
+            ))}
+          </div>
         </div>
-        <div className="text-[10px] text-slate-500">
-          <span className="block font-bold text-slate-400 mb-1 tracking-widest uppercase">Categoría</span>
-          {concept.categoria}
+        <div className="text-right">
+          <span className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Categoría</span>
+          <span className="text-[11px] text-white font-medium">{concept.categoria}</span>
         </div>
       </div>
     </div>
@@ -94,13 +123,15 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('Todos');
   const [sourceFilter, setSourceFilter] = useState<string>('Todas');
-
+  
+  const stats = useMemo(() => getDatasetStats(), []);
   const sources = useMemo(() => Array.from(new Set(acousticDataset.map(d => d.fuente.documento))), []);
 
   const filtered = useMemo(() => {
     return acousticDataset.filter(c => {
       const matchesQuery = c.titulo.toLowerCase().includes(query.toLowerCase()) || 
-                           c.id_concepto.toLowerCase().includes(query.toLowerCase());
+                           c.id_concepto.toLowerCase().includes(query.toLowerCase()) ||
+                           c.meta_tags.some(t => t.toLowerCase().includes(query.toLowerCase()));
       const matchesType = typeFilter === 'Todos' || c.tipo === typeFilter;
       const matchesSource = sourceFilter === 'Todas' || c.fuente.documento === sourceFilter;
       return matchesQuery && matchesType && matchesSource;
@@ -108,64 +139,123 @@ export default function App() {
   }, [query, typeFilter, sourceFilter]);
 
   return (
-    <div className="min-h-screen bg-slate-950 p-6 md:p-12 max-w-7xl mx-auto">
-      <header className="mb-12">
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <h1 className="text-5xl font-black text-white tracking-tighter">
-              LiveSync <span className="text-blue-500">PRO</span>
+    <div className="flex h-screen bg-[#050505] text-slate-400">
+      <ReadingProgress />
+
+      {/* Sidebar Navigation */}
+      <aside className="w-80 bg-[#080808] border-r border-white/5 flex flex-col hidden md:flex overflow-y-auto">
+        <div className="p-8 pb-12">
+          <div className="relative mb-12">
+            <div className="absolute -inset-4 bg-cyan-500/10 blur-2xl rounded-full"></div>
+            <h1 className="relative text-xl font-black text-white tracking-[0.3em] uppercase">
+              LiveSync <span className="text-cyan-500">PRO</span>
             </h1>
-            <p className="text-slate-500 mt-2 font-medium">Knowledge Base Management System v1.2</p>
+            <p className="text-[9px] font-bold text-slate-600 tracking-[0.2em] uppercase mt-2">
+              Engineering Dataset v1.2
+            </p>
           </div>
-          <div className="hidden md:block text-right">
-            <div className="text-xs text-slate-600 uppercase tracking-widest font-bold">Última actualización</div>
-            <div className="text-slate-400 font-mono">2024.05.25.PRED</div>
+
+          <nav className="space-y-12">
+            <div>
+              <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Módulos de Sistema</h2>
+              <div className="space-y-3">
+                {sources.map(s => (
+                  <button
+                    key={s}
+                    onClick={() => setSourceFilter(s === sourceFilter ? 'Todas' : s)}
+                    className={`w-full text-left px-4 py-2.5 rounded-lg text-xs transition-all border ${
+                      sourceFilter === s 
+                        ? 'bg-white/5 border-white/10 text-white border-l-2 border-l-cyan-500' 
+                        : 'border-transparent text-slate-500 hover:text-slate-300'
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Métricas de Estado</h2>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-[#0f0f0f] border border-white/5 p-4 rounded-xl">
+                  <div className="text-white font-black text-xl">{stats.total}</div>
+                  <div className="text-[8px] uppercase tracking-tighter">Conceptos</div>
+                </div>
+                <div className="bg-[#0f0f0f] border border-white/5 p-4 rounded-xl">
+                  <div className="text-cyan-500 font-black text-xl">{stats.porTipo['Fórmula'] || 0}</div>
+                  <div className="text-[8px] uppercase tracking-tighter text-slate-500">Fórmulas</div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <main id="main-content" className="flex-1 overflow-y-auto relative bg-[#050505]">
+        {/* Sticky Backdrop-Blur Header */}
+        <header className="sticky top-0 z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-8 md:px-12 py-6">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-6 items-center justify-between">
+            <div className="relative w-full md:w-2/3">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500/50">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <input 
+                className="w-full bg-[#0f0f0f] border border-white/10 rounded-xl pl-12 pr-6 py-3 text-sm text-white placeholder-slate-600 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all"
+                placeholder="Explorar por término técnico, ID o parámetro..."
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+              />
+            </div>
+            
+            <div className="flex gap-4 w-full md:w-auto">
+              <select 
+                className="flex-1 md:flex-none bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500/50"
+                value={typeFilter}
+                onChange={e => setTypeFilter(e.target.value)}
+              >
+                {['Todos', 'Fórmula', 'Definición', 'Constante', 'Hallazgo'].map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </div>
           </div>
+        </header>
+
+        {/* Grid Content */}
+        <div className="px-8 md:px-12 py-12 max-w-6xl mx-auto min-h-screen">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {filtered.map((concept, idx) => (
+              <ConceptCard key={concept.id_concepto} concept={concept} index={idx} />
+            ))}
+          </div>
+
+          {filtered.length === 0 && (
+            <div className="py-40 text-center border border-dashed border-white/10 rounded-3xl animate-fade-in">
+              <div className="text-cyan-500/20 mb-4 flex justify-center">
+                <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <p className="text-slate-600 text-lg font-medium tracking-tight">Sin resultados para la consulta actual.</p>
+              <button 
+                onClick={() => {setQuery(''); setTypeFilter('Todos'); setSourceFilter('Todas');}}
+                className="mt-4 text-cyan-500 text-xs font-black uppercase tracking-widest hover:text-white transition-colors"
+              >
+                Resetear Filtros
+              </button>
+            </div>
+          )}
         </div>
 
-        <StatsBar />
-
-        <div className="flex flex-col md:flex-row gap-4">
-          <input 
-            className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-5 py-4 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-            placeholder="Filtrar por término técnico, ID o concepto..."
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-          />
-          <select 
-            className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-4 text-slate-400 outline-none focus:border-blue-500"
-            value={typeFilter}
-            onChange={e => setTypeFilter(e.target.value)}
-          >
-            {['Todos', 'Fórmula', 'Definición', 'Constante', 'Hallazgo'].map(t => <option key={t} value={t}>{t}</option>)}
-          </select>
-          <select 
-            className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-4 text-slate-400 outline-none focus:border-blue-500 max-w-xs"
-            value={sourceFilter}
-            onChange={e => setSourceFilter(e.target.value)}
-          >
-            <option value="Todas">Todas las fuentes</option>
-            {sources.map(s => <option key={s} value={s}>{s}</option>)}
-          </select>
-        </div>
-      </header>
-
-      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map(concept => (
-          <ConceptCard key={concept.id_concepto} concept={concept} />
-        ))}
-        {filtered.length === 0 && (
-          <div className="col-span-full py-20 text-center border border-dashed border-slate-800 rounded-2xl">
-            <p className="text-slate-500">No se encontraron resultados para los filtros seleccionados.</p>
+        <footer className="px-12 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.2em] text-slate-600 gap-4">
+          <div className="flex items-center gap-2">
+            <span className="w-1 h-1 rounded-full bg-green-500"></span>
+            LIVESYNC KNOWLEDGE CORE
           </div>
-        )}
+          <div className="text-center md:text-right space-y-1">
+            <p>Predictive Acoustic Explorer v1.2</p>
+            <p className="text-slate-800">© 2024 Modular Data Architecture</p>
+          </div>
+        </footer>
       </main>
-
-      <footer className="mt-20 py-12 border-t border-slate-900 flex justify-between items-center text-slate-600 text-[10px] uppercase tracking-widest">
-        <span>Predictive Acoustic Explorer</span>
-        <span>Integridad de datos garantizada por estructura modular</span>
-        <span>© 2024</span>
-      </footer>
     </div>
   );
 }

@@ -4,10 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveSync PRO Dataset</title>
+    <title>LiveSync PRO | Dataset Explorer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #050505;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+            border-radius: 10px;
+            border: 2px solid #050505;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #252525;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in { animation: fadeIn 300ms ease-out forwards; }
+        .animate-slide-up { animation: slideUp 400ms ease-out forwards; }
+
+        .katex-display {
+            margin: 1em 0;
+            color: #06b6d4;
+        }
+    </style>
     <script type="importmap">
     {
       "imports": {
@@ -18,7 +61,7 @@
     }
     </script>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased">
+<body class="text-slate-400 antialiased overflow-hidden">
     <div id="root"></div>
 </body>
 </html>
