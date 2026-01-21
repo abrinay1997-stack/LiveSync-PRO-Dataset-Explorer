@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { acousticDataset, getDatasetStats } from './data';
 import { Concept, ConceptType } from './types';
+import { Search, Filter, Database, Info, Activity } from 'lucide-react';
 
 const MathRenderer: React.FC<{ tex: string }> = ({ tex }) => {
   const [html, setHtml] = useState<string>('');
@@ -18,7 +19,7 @@ const MathRenderer: React.FC<{ tex: string }> = ({ tex }) => {
           });
           setHtml(rendered);
         } catch (err) {
-          setHtml(`<span class="text-red-500 text-xs">Error LaTeX</span>`);
+          setHtml(`<span class="text-red-500 text-xs italic">Error en sintaxis matemática</span>`);
         }
       } else {
         setTimeout(renderMath, 100);
@@ -27,8 +28,8 @@ const MathRenderer: React.FC<{ tex: string }> = ({ tex }) => {
     renderMath();
   }, [tex]);
 
-  if (!html) return <div className="h-12 flex items-center justify-center text-slate-800">...</div>;
-  return <div className="my-6 py-4 overflow-x-auto font-mono text-lg border-y border-white/5" dangerouslySetInnerHTML={{ __html: html }} />;
+  if (!html) return <div className="h-16 flex items-center justify-center text-slate-800 animate-pulse">...</div>;
+  return <div className="my-2 overflow-x-auto" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 const ReadingProgress = () => {
@@ -51,7 +52,7 @@ const ReadingProgress = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-[2px] bg-white/5 z-[100]">
       <div 
-        className="h-full bg-gradient-to-r from-cyan-400 via-cyan-500 to-purple-500 transition-all duration-150"
+        className="h-full bg-gradient-to-r from-cyan-400 via-cyan-500 to-purple-500 transition-all duration-150 shadow-[0_0_10px_#06b6d4]"
         style={{ width: `${width}%` }}
       />
     </div>
@@ -59,60 +60,70 @@ const ReadingProgress = () => {
 };
 
 const ConceptCard: React.FC<{ concept: Concept; index: number }> = ({ concept, index }) => {
+  const colorMap: Record<ConceptType, string> = {
+    'Fórmula': 'text-cyan-400 border-cyan-400/20',
+    'Definición': 'text-emerald-400 border-emerald-400/20',
+    'Constante': 'text-amber-400 border-amber-400/20',
+    'Hallazgo': 'text-purple-400 border-purple-400/20'
+  };
+
   return (
     <div 
-      className="bg-[#0f0f0f] border border-white/5 rounded-2xl p-8 hover:border-cyan-500/30 transition-all duration-300 group flex flex-col h-full animate-slide-up"
-      style={{ animationDelay: `${index * 50}ms` }}
+      className="bg-[#0f0f0f] border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden group flex flex-col h-full animate-slide-up"
+      style={{ animationDelay: `${index * 40}ms` }}
     >
+      {/* Glow superior */}
+      <div className="absolute top-0 left-0 w-full h-0.5 bg-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:bg-cyan-400 transition-colors"></div>
+      
       <div className="flex justify-between items-start mb-6">
         <div className="flex flex-col">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">
-            ID: {concept.id_concepto}
+          <span className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1">
+            Component ID: {concept.id_concepto}
           </span>
           <div className="flex gap-2 items-center">
-            <div className="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4]"></div>
-            <span className="text-[10px] font-black text-cyan-500 uppercase tracking-[0.2em]">
-              v{concept.version_dataset}
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
+            <span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">
+              LSP-CORE v{concept.version_dataset}
             </span>
           </div>
         </div>
-        <span className="text-[10px] font-bold px-3 py-1 rounded-full border border-white/10 bg-white/5 text-white uppercase tracking-widest">
+        <span className={`text-[10px] font-bold px-3 py-1 rounded-full border bg-white/5 uppercase tracking-widest ${colorMap[concept.tipo]}`}>
           {concept.tipo}
         </span>
       </div>
       
-      <h3 className="text-2xl font-black text-white mb-2 tracking-tighter leading-tight group-hover:text-cyan-400 transition-colors">
+      <h3 className="text-xl font-bold text-white mb-2 tracking-tight group-hover:text-cyan-400 transition-colors duration-300">
         {concept.titulo}
       </h3>
-      <p className="text-[11px] text-purple-400 font-bold uppercase tracking-widest mb-6 opacity-70">
+      <p className="text-[11px] text-slate-500 font-medium uppercase tracking-[0.1em] mb-6">
         {concept.fuente.documento} • {concept.fuente.año}
       </p>
       
       <div className="flex-1">
-        <p className="text-slate-400 text-base mb-6 leading-relaxed">
+        <div className="text-slate-400 text-sm leading-[1.7] mb-6">
           {concept.contenido_tecnico.definicion_detallada.split(' ').map((word, i) => (
-            <span key={i} className={i % 7 === 0 ? "border-b border-dotted border-cyan-500/40 cursor-help" : ""}>
+            <span key={i} className={i % 8 === 0 ? "border-b border-dotted border-cyan-500/40 cursor-help" : ""}>
               {word}{' '}
             </span>
           ))}
-        </p>
+        </div>
         <MathRenderer tex={concept.contenido_tecnico.formula_latex} />
       </div>
 
-      <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-2 gap-4">
+      <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-2 gap-6">
         <div>
-          <span className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Variables</span>
-          <div className="flex flex-wrap gap-1">
+          <span className="block text-[9px] font-black text-slate-600 uppercase tracking-widest mb-2">Technical Params</span>
+          <div className="flex flex-wrap gap-1.5">
             {Object.keys(concept.contenido_tecnico.variables).map(v => (
-              <code key={v} className="text-[10px] font-mono text-cyan-400 bg-cyan-500/5 px-1.5 py-0.5 rounded border border-cyan-500/10">
+              <code key={v} className="text-[10px] font-mono text-cyan-400 bg-cyan-500/5 px-2 py-0.5 rounded border border-cyan-500/10">
                 {v}
               </code>
             ))}
           </div>
         </div>
         <div className="text-right">
-          <span className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Categoría</span>
-          <span className="text-[11px] text-white font-medium">{concept.categoria}</span>
+          <span className="block text-[9px] font-black text-slate-600 uppercase tracking-widest mb-2">Category</span>
+          <span className="text-xs text-slate-300 font-semibold">{concept.categoria}</span>
         </div>
       </div>
     </div>
@@ -139,120 +150,154 @@ export default function App() {
   }, [query, typeFilter, sourceFilter]);
 
   return (
-    <div className="flex h-screen bg-[#050505] text-slate-400">
+    <div className="flex h-screen bg-[#050505] text-slate-400 font-sans">
       <ReadingProgress />
 
-      {/* Sidebar Navigation */}
-      <aside className="w-80 bg-[#080808] border-r border-white/5 flex flex-col hidden md:flex overflow-y-auto">
-        <div className="p-8 pb-12">
-          <div className="relative mb-12">
-            <div className="absolute -inset-4 bg-cyan-500/10 blur-2xl rounded-full"></div>
-            <h1 className="relative text-xl font-black text-white tracking-[0.3em] uppercase">
-              LiveSync <span className="text-cyan-500">PRO</span>
+      {/* Sidebar Navigation - Engineering Sidebar */}
+      <aside className="w-80 bg-[#080808] border-r border-white/5 flex flex-col hidden lg:flex">
+        <div className="p-10 flex-1 overflow-y-auto">
+          {/* Logo Branding */}
+          <div className="flex flex-col items-center mb-16">
+            <div className="relative w-16 h-16 mb-6 group cursor-pointer">
+              <div className="absolute inset-0 bg-cyan-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+              <img 
+                src="https://hostedimages-cdn.aweber-static.com/MjM0MTQ0NQ==/optimized/20657f92efa544489526caee3beef9d2.png" 
+                alt="LiveSync Pro Logo" 
+                className="relative w-full h-full object-contain opacity-90"
+              />
+            </div>
+            <h1 className="text-xl font-bold tracking-[0.25em] uppercase">
+              <span className="text-white">LIVESYNC</span> <span className="gradient-text">PRO</span>
             </h1>
-            <p className="text-[9px] font-bold text-slate-600 tracking-[0.2em] uppercase mt-2">
-              Engineering Dataset v1.2
+            <p className="text-[#666] text-[9px] uppercase tracking-[0.3em] mt-2 font-bold text-center">
+              System Engineering Suite
             </p>
           </div>
 
           <nav className="space-y-12">
             <div>
-              <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Módulos de Sistema</h2>
-              <div className="space-y-3">
+              <div className="flex items-center gap-2 mb-6">
+                <Database className="w-3 h-3 text-cyan-500" />
+                <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Library Modules</h2>
+              </div>
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSourceFilter('Todas')}
+                  className={`w-full text-left px-4 py-2.5 rounded-xl text-[11px] font-bold transition-all border ${
+                    sourceFilter === 'Todas' 
+                      ? 'bg-white/5 border-white/10 text-white border-l-2 border-l-cyan-500' 
+                      : 'border-transparent text-slate-500 hover:text-slate-300'
+                  }`}
+                >
+                  ALL KNOWLEDGE BASE
+                </button>
                 {sources.map(s => (
                   <button
                     key={s}
-                    onClick={() => setSourceFilter(s === sourceFilter ? 'Todas' : s)}
-                    className={`w-full text-left px-4 py-2.5 rounded-lg text-xs transition-all border ${
+                    onClick={() => setSourceFilter(s)}
+                    className={`w-full text-left px-4 py-2.5 rounded-xl text-[11px] font-bold transition-all border ${
                       sourceFilter === s 
                         ? 'bg-white/5 border-white/10 text-white border-l-2 border-l-cyan-500' 
                         : 'border-transparent text-slate-500 hover:text-slate-300'
                     }`}
                   >
-                    {s}
+                    {s.toUpperCase()}
                   </button>
                 ))}
               </div>
             </div>
 
             <div>
-              <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Métricas de Estado</h2>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[#0f0f0f] border border-white/5 p-4 rounded-xl">
-                  <div className="text-white font-black text-xl">{stats.total}</div>
-                  <div className="text-[8px] uppercase tracking-tighter">Conceptos</div>
+              <div className="flex items-center gap-2 mb-6">
+                <Info className="w-3 h-3 text-purple-500" />
+                <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">System Metrics</h2>
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                <div className="bg-[#0f0f0f] border border-white/5 p-5 rounded-2xl">
+                  <div className="text-white font-bold text-2xl mb-1 tracking-tighter">{stats.total}</div>
+                  <div className="text-[9px] uppercase tracking-widest text-slate-500">Core Concepts</div>
                 </div>
-                <div className="bg-[#0f0f0f] border border-white/5 p-4 rounded-xl">
-                  <div className="text-cyan-500 font-black text-xl">{stats.porTipo['Fórmula'] || 0}</div>
-                  <div className="text-[8px] uppercase tracking-tighter text-slate-500">Fórmulas</div>
+                <div className="bg-[#0f0f0f] border border-white/5 p-5 rounded-2xl">
+                  <div className="text-cyan-500 font-bold text-2xl mb-1 tracking-tighter">{stats.porTipo['Fórmula'] || 0}</div>
+                  <div className="text-[9px] uppercase tracking-widest text-slate-500">Analytic Formulas</div>
                 </div>
               </div>
             </div>
           </nav>
         </div>
+        
+        <div className="p-8 border-t border-white/5">
+          <div className="flex items-center gap-3">
+             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]"></div>
+             <span className="text-[9px] font-black uppercase tracking-widest text-slate-600">Core Database Online</span>
+          </div>
+        </div>
       </aside>
 
       {/* Main Content Area */}
       <main id="main-content" className="flex-1 overflow-y-auto relative bg-[#050505]">
-        {/* Sticky Backdrop-Blur Header */}
-        <header className="sticky top-0 z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-8 md:px-12 py-6">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-6 items-center justify-between">
-            <div className="relative w-full md:w-2/3">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500/50">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        {/* Sticky Glass Header */}
+        <header className="sticky top-0 z-50 glass border-b border-white/5 px-8 lg:px-16 py-8">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 items-center justify-between">
+            <div className="relative w-full md:w-2/3 group">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500/50 group-focus-within:text-cyan-400 transition-colors">
+                <Search className="w-5 h-5" />
               </div>
               <input 
-                className="w-full bg-[#0f0f0f] border border-white/10 rounded-xl pl-12 pr-6 py-3 text-sm text-white placeholder-slate-600 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all"
-                placeholder="Explorar por término técnico, ID o parámetro..."
+                className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-14 pr-6 py-4 text-sm text-white placeholder-slate-600 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all shadow-2xl"
+                placeholder="Search technical terms, ID or parameters..."
                 value={query}
                 onChange={e => setQuery(e.target.value)}
               />
             </div>
             
             <div className="flex gap-4 w-full md:w-auto">
-              <select 
-                className="flex-1 md:flex-none bg-[#0f0f0f] border border-white/10 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-cyan-500/50"
-                value={typeFilter}
-                onChange={e => setTypeFilter(e.target.value)}
-              >
-                {['Todos', 'Fórmula', 'Definición', 'Constante', 'Hallazgo'].map(t => <option key={t} value={t}>{t}</option>)}
-              </select>
+              <div className="relative flex-1 md:flex-none">
+                <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <select 
+                  className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-10 pr-10 py-4 text-xs font-bold text-white uppercase tracking-widest outline-none focus:border-cyan-500/50 appearance-none cursor-pointer"
+                  value={typeFilter}
+                  onChange={e => setTypeFilter(e.target.value)}
+                >
+                  {['Todos', 'Fórmula', 'Definición', 'Constante', 'Hallazgo'].map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
             </div>
           </div>
         </header>
 
-        {/* Grid Content */}
-        <div className="px-8 md:px-12 py-12 max-w-6xl mx-auto min-h-screen">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Content Grid */}
+        <div className="px-8 lg:px-16 py-16 max-w-6xl mx-auto min-h-screen">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {filtered.map((concept, idx) => (
               <ConceptCard key={concept.id_concepto} concept={concept} index={idx} />
             ))}
           </div>
 
           {filtered.length === 0 && (
-            <div className="py-40 text-center border border-dashed border-white/10 rounded-3xl animate-fade-in">
-              <div className="text-cyan-500/20 mb-4 flex justify-center">
-                <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div className="py-48 text-center border border-dashed border-white/10 rounded-[3rem] animate-fade-in bg-white/[0.01]">
+              <div className="text-cyan-500/10 mb-8 flex justify-center">
+                <Activity className="w-24 h-24" strokeWidth={0.5} />
               </div>
-              <p className="text-slate-600 text-lg font-medium tracking-tight">Sin resultados para la consulta actual.</p>
+              <p className="text-slate-600 text-xl font-medium tracking-tight mb-6">No matching telemetry found in the database.</p>
               <button 
                 onClick={() => {setQuery(''); setTypeFilter('Todos'); setSourceFilter('Todas');}}
-                className="mt-4 text-cyan-500 text-xs font-black uppercase tracking-widest hover:text-white transition-colors"
+                className="bg-white text-black px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-slate-200 transition-all shadow-2xl"
               >
-                Resetear Filtros
+                Reset Search Filters
               </button>
             </div>
           )}
         </div>
 
-        <footer className="px-12 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.2em] text-slate-600 gap-4">
-          <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-green-500"></span>
-            LIVESYNC KNOWLEDGE CORE
+        <footer className="px-16 py-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.25em] text-slate-700 gap-8">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
+            LIVESYNC PRO ARCHITECTURE
           </div>
-          <div className="text-center md:text-right space-y-1">
-            <p>Predictive Acoustic Explorer v1.2</p>
-            <p className="text-slate-800">© 2024 Modular Data Architecture</p>
+          <div className="text-center md:text-right space-y-2">
+            <p className="font-black text-slate-500">Predictive Acoustic Explorer v1.2.4</p>
+            <p className="text-slate-800">Modular Data & Asset Intelligence Layer</p>
           </div>
         </footer>
       </main>
