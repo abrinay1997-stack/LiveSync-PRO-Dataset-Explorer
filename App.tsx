@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { acousticDataset, getDatasetStats } from './data';
 import { Concept, ConceptType } from './types';
-import { Search, Filter, Database, Info, Activity } from 'lucide-react';
+import { Search, Filter, Database, Info, Activity, Menu, X } from 'lucide-react';
 
 const MathRenderer: React.FC<{ tex: string }> = ({ tex }) => {
   const [html, setHtml] = useState<string>('');
@@ -50,7 +50,7 @@ const ReadingProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-[2px] bg-white/5 z-[100]">
+    <div className="fixed top-0 left-0 w-full h-[2px] bg-white/5 z-[110]">
       <div 
         className="h-full bg-gradient-to-r from-cyan-400 via-cyan-500 to-purple-500 transition-all duration-150 shadow-[0_0_10px_#06b6d4]"
         style={{ width: `${width}%` }}
@@ -72,7 +72,6 @@ const ConceptCard: React.FC<{ concept: Concept; index: number }> = ({ concept, i
       className="bg-[#0f0f0f] border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden group flex flex-col h-full animate-slide-up"
       style={{ animationDelay: `${index * 40}ms` }}
     >
-      {/* Glow superior */}
       <div className="absolute top-0 left-0 w-full h-0.5 bg-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:bg-cyan-400 transition-colors"></div>
       
       <div className="flex justify-between items-start mb-6">
@@ -134,6 +133,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('Todos');
   const [sourceFilter, setSourceFilter] = useState<string>('Todas');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   const stats = useMemo(() => getDatasetStats(), []);
   const sources = useMemo(() => Array.from(new Set(acousticDataset.map(d => d.fuente.documento))), []);
@@ -149,13 +149,38 @@ export default function App() {
     });
   }, [query, typeFilter, sourceFilter]);
 
+  const handleSourceSelect = (s: string) => {
+    setSourceFilter(s);
+    setIsSidebarOpen(false); // Cierra el menú en móviles tras seleccionar
+  };
+
   return (
-    <div className="flex h-screen bg-[#050505] text-slate-400 font-sans">
+    <div className="flex h-screen bg-[#050505] text-slate-400 font-sans relative overflow-hidden">
       <ReadingProgress />
 
-      {/* Sidebar Navigation - Engineering Sidebar */}
-      <aside className="w-80 bg-[#080808] border-r border-white/5 flex flex-col hidden lg:flex">
-        <div className="p-10 flex-1 overflow-y-auto">
+      {/* Backdrop for Mobile Sidebar */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] lg:hidden animate-fade-in"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar Navigation - Shared for Desktop and Mobile */}
+      <aside className={`
+        fixed lg:relative inset-y-0 left-0 w-80 bg-[#080808] border-r border-white/5 flex flex-col z-[105] 
+        transition-transform duration-500 ease-in-out lg:translate-x-0
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        <div className="p-10 flex-1 overflow-y-auto custom-scrollbar">
+          {/* Close Button for Mobile */}
+          <button 
+            className="lg:hidden absolute top-6 right-6 text-slate-500 hover:text-white"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <X className="w-6 h-6" />
+          </button>
+
           {/* Logo Branding */}
           <div className="flex flex-col items-center mb-16">
             <div className="relative w-16 h-16 mb-6 group cursor-pointer">
@@ -182,7 +207,7 @@ export default function App() {
               </div>
               <div className="space-y-2">
                 <button
-                  onClick={() => setSourceFilter('Todas')}
+                  onClick={() => handleSourceSelect('Todas')}
                   className={`w-full text-left px-4 py-2.5 rounded-xl text-[11px] font-bold transition-all border ${
                     sourceFilter === 'Todas' 
                       ? 'bg-white/5 border-white/10 text-white border-l-2 border-l-cyan-500' 
@@ -194,7 +219,7 @@ export default function App() {
                 {sources.map(s => (
                   <button
                     key={s}
-                    onClick={() => setSourceFilter(s)}
+                    onClick={() => handleSourceSelect(s)}
                     className={`w-full text-left px-4 py-2.5 rounded-xl text-[11px] font-bold transition-all border ${
                       sourceFilter === s 
                         ? 'bg-white/5 border-white/10 text-white border-l-2 border-l-cyan-500' 
@@ -237,52 +262,86 @@ export default function App() {
       {/* Main Content Area */}
       <main id="main-content" className="flex-1 overflow-y-auto relative bg-[#050505]">
         {/* Sticky Glass Header */}
-        <header className="sticky top-0 z-50 glass border-b border-white/5 px-8 lg:px-16 py-8">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 items-center justify-between">
-            <div className="relative w-full md:w-2/3 group">
-              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500/50 group-focus-within:text-cyan-400 transition-colors">
-                <Search className="w-5 h-5" />
-              </div>
-              <input 
-                className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-14 pr-6 py-4 text-sm text-white placeholder-slate-600 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all shadow-2xl"
-                placeholder="Search technical terms, ID or parameters..."
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-              />
-            </div>
+        <header className="sticky top-0 z-50 glass border-b border-white/5 px-6 md:px-8 lg:px-16 py-6 md:py-8">
+          <div className="max-w-6xl mx-auto flex flex-col gap-6">
             
-            <div className="flex gap-4 w-full md:w-auto">
-              <div className="relative flex-1 md:flex-none">
-                <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                <select 
-                  className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-10 pr-10 py-4 text-xs font-bold text-white uppercase tracking-widest outline-none focus:border-cyan-500/50 appearance-none cursor-pointer"
-                  value={typeFilter}
-                  onChange={e => setTypeFilter(e.target.value)}
+            {/* Mobile Brand Section */}
+            <div className="flex items-center justify-between lg:hidden">
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => setIsSidebarOpen(true)}
+                  className="p-2 -ml-2 text-slate-400 hover:text-white transition-colors"
                 >
-                  {['Todos', 'Fórmula', 'Definición', 'Constante', 'Hallazgo'].map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
+                  <Menu className="w-6 h-6" />
+                </button>
+                <div className="flex items-center gap-3">
+                  <div className="relative w-8 h-8 group">
+                    <div className="absolute inset-0 bg-cyan-500 blur-lg opacity-30"></div>
+                    <img 
+                      src="https://hostedimages-cdn.aweber-static.com/MjM0MTQ0NQ==/optimized/20657f92efa544489526caee3beef9d2.png" 
+                      alt="LiveSync Pro Logo" 
+                      className="relative w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="text-[12px] font-black tracking-[0.2em] uppercase leading-none">
+                      <span className="text-white">LIVESYNC</span> <span className="gradient-text">PRO</span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <span className="text-[7px] font-black text-slate-700 uppercase tracking-widest">LSP-DATA v1.2.4</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center justify-between">
+              <div className="relative w-full md:w-2/3 group">
+                <div className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-500/50 group-focus-within:text-cyan-400 transition-colors">
+                  <Search className="w-5 h-5" />
+                </div>
+                <input 
+                  className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-14 pr-6 py-4 text-sm text-white placeholder-slate-600 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all shadow-2xl"
+                  placeholder="Search technical terms, ID or parameters..."
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                />
+              </div>
+              
+              <div className="flex gap-4 w-full md:w-auto">
+                <div className="relative flex-1 md:flex-none">
+                  <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <select 
+                    className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-10 pr-10 py-4 text-xs font-bold text-white uppercase tracking-widest outline-none focus:border-cyan-500/50 appearance-none cursor-pointer"
+                    value={typeFilter}
+                    onChange={e => setTypeFilter(e.target.value)}
+                  >
+                    {['Todos', 'Fórmula', 'Definición', 'Constante', 'Hallazgo'].map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
               </div>
             </div>
           </div>
         </header>
 
         {/* Content Grid */}
-        <div className="px-8 lg:px-16 py-16 max-w-6xl mx-auto min-h-screen">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="px-6 md:px-8 lg:px-16 py-8 md:py-16 max-w-6xl mx-auto min-h-screen">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
             {filtered.map((concept, idx) => (
               <ConceptCard key={concept.id_concepto} concept={concept} index={idx} />
             ))}
           </div>
 
           {filtered.length === 0 && (
-            <div className="py-48 text-center border border-dashed border-white/10 rounded-[3rem] animate-fade-in bg-white/[0.01]">
+            <div className="py-24 md:py-48 text-center border border-dashed border-white/10 rounded-[2rem] md:rounded-[3rem] animate-fade-in bg-white/[0.01]">
               <div className="text-cyan-500/10 mb-8 flex justify-center">
-                <Activity className="w-24 h-24" strokeWidth={0.5} />
+                <Activity className="w-16 md:w-24 h-16 md:h-24" strokeWidth={0.5} />
               </div>
-              <p className="text-slate-600 text-xl font-medium tracking-tight mb-6">No matching telemetry found in the database.</p>
+              <p className="text-slate-600 text-lg md:text-xl font-medium tracking-tight mb-6 px-4">No matching telemetry found in the database.</p>
               <button 
                 onClick={() => {setQuery(''); setTypeFilter('Todos'); setSourceFilter('Todas');}}
-                className="bg-white text-black px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-slate-200 transition-all shadow-2xl"
+                className="bg-white text-black px-6 md:px-8 py-3 md:py-4 rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-slate-200 transition-all shadow-2xl"
               >
                 Reset Search Filters
               </button>
@@ -290,7 +349,7 @@ export default function App() {
           )}
         </div>
 
-        <footer className="px-16 py-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.25em] text-slate-700 gap-8">
+        <footer className="px-8 lg:px-16 py-12 md:py-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-[0.25em] text-slate-700 gap-8">
           <div className="flex items-center gap-3">
             <span className="w-1.5 h-1.5 rounded-full bg-slate-800"></span>
             LIVESYNC PRO ARCHITECTURE
