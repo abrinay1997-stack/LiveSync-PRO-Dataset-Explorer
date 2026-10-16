@@ -10,12 +10,13 @@ export const audienceData: Concept[] = [
     "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2: Impact on Time Alignment of Loudspeaker Systems (AES 157th Convention, Paper 10184)", "año": 2024, "autor": "Thomas Mouterde, Nicolas Epain & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2025/08/Audience_Effect_in_the_Low-Frequency_Range_Part_2__Impact_on_Time_Alignment_of_Loudspeaker_Systems__doc.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "La audiencia puede modelarse como un material poroso que reduce la velocidad de propagación de la onda sonora. La velocidad disminuye a medida que aumenta la densidad de personas.",
-      "formula_latex": "$$ v_{sound} = f(\text{densidad_audiencia}) \\downarrow $$",
+      "formula_latex": "$$ v_{sound} = f(\\text{densidad de audiencia}) \\downarrow $$",
       "variables": { "v_{sound}": "Velocidad del sonido en la audiencia" },
       "restricciones": "Impacto crítico en fuentes cercanas al suelo."
     },
     "meta_tags": ["densidad", "propagación", "material poroso"],
-    "version_dataset": "1.3"
+    "version_dataset": "1.3",
+    "nota_verificacion": "verificar: número de paper vs. año. El PDF publicado por L-Acoustics y el AES E-Library lo identifican, según búsqueda web (no se pudo abrir el PDF desde este entorno), como Convention Paper 10184 de la 157th Convention (Nueva York, 8–10 oct 2024); sin embargo ese número es inferior al de la Parte 1 (AES Paper 10398, 2020), lo que no encaja con la numeración histórica de AES. Confirmar en el AES E-Library."
   },
   {
     "id_concepto": "desfase_inducido_audiencia_gr_sub",
@@ -30,7 +31,8 @@ export const audienceData: Concept[] = [
       "restricciones": "Resulta en una pérdida severa de suma en el rango de crossover."
     },
     "meta_tags": ["fase", "ground-stacked", "crossover"],
-    "version_dataset": "1.3"
+    "version_dataset": "1.3",
+    "nota_verificacion": "verificar: número de paper vs. año. El PDF publicado por L-Acoustics y el AES E-Library lo identifican, según búsqueda web (no se pudo abrir el PDF desde este entorno), como Convention Paper 10184 de la 157th Convention (Nueva York, 8–10 oct 2024); sin embargo ese número es inferior al de la Parte 1 (AES Paper 10398, 2020), lo que no encaja con la numeración histórica de AES. Confirmar en el AES E-Library."
   },
   {
     "id_concepto": "ralentizacion_vs_altura_fuente",
@@ -45,7 +47,8 @@ export const audienceData: Concept[] = [
       "restricciones": "Explica por qué los sistemas volados mantienen mejor el alineamiento que los de suelo."
     },
     "meta_tags": ["altura", "flown", "ground-stacked"],
-    "version_dataset": "1.3"
+    "version_dataset": "1.3",
+    "nota_verificacion": "verificar: número de paper vs. año. El PDF publicado por L-Acoustics y el AES E-Library lo identifican, según búsqueda web (no se pudo abrir el PDF desde este entorno), como Convention Paper 10184 de la 157th Convention (Nueva York, 8–10 oct 2024); sin embargo ese número es inferior al de la Parte 1 (AES Paper 10398, 2020), lo que no encaja con la numeración histórica de AES. Confirmar en el AES E-Library."
   },
   {
     "id_concepto": "ajuste_alineamiento_temporal_audiencia",
@@ -60,6 +63,7 @@ export const audienceData: Concept[] = [
       "restricciones": "Basado en mediciones FOH a 33m-42m."
     },
     "meta_tags": ["delay", "calibración", "realineamiento"],
-    "version_dataset": "1.3"
+    "version_dataset": "1.3",
+    "nota_verificacion": "verificar: número de paper vs. año. El PDF publicado por L-Acoustics y el AES E-Library lo identifican, según búsqueda web (no se pudo abrir el PDF desde este entorno), como Convention Paper 10184 de la 157th Convention (Nueva York, 8–10 oct 2024); sin embargo ese número es inferior al de la Parte 1 (AES Paper 10398, 2020), lo que no encaja con la numeración histórica de AES. Confirmar en el AES E-Library."
   }
 ];

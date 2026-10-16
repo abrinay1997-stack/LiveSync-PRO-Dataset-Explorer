@@ -33,21 +33,6 @@ export const combFilteringData: Concept[] = [
     "version_dataset": "1.8"
   },
   {
-    "id_concepto": "ventana_precedencia_estimulos",
-    "categoria": "Psicoacústica",
-    "tipo": "Constante",
-    "titulo": "Ventana del Efecto de Precedencia por Estímulo",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
-    "contenido_tecnico": {
-      "definicion_detallada": "Límite superior de tiempo donde dos sonidos se perciben como un evento único fusionado en la dirección de la fuente líder.",
-      "formula_latex": "$$ \\Delta t_{clicks} \\in [5, 10] \\text{ ms}, \\quad \\Delta t_{speech} \\approx 30 \\text{ ms} $$",
-      "variables": { "\\Delta t": "Ventana de fusión temporal" },
-      "restricciones": "Valores para fuentes al mismo nivel SPL."
-    },
-    "meta_tags": ["Haas", "precedencia", "clicks", "speech"],
-    "version_dataset": "1.8"
-  },
-  {
     "id_concepto": "umbral_audibilidad_vs_aceptabilidad_comb",
     "categoria": "Psicoacústica",
     "tipo": "Constante",
@@ -57,10 +42,11 @@ export const combFilteringData: Concept[] = [
       "definicion_detallada": "Diferenciación angular de la zona donde una reflexión a -6 dB genera degradación tímbrica audible frente a la zona donde es subjetivamente inaceptable.",
       "formula_latex": "$$ \\theta_{audible} = \\pm 50^\\circ, \\quad \\theta_{unacceptable} = \\pm 41^\\circ $$",
       "variables": { "\\theta": "Ángulo de lateralización respecto a 0°" },
-      "restricciones": "Basado en una fuente lag a -6 dB relativo a la fuente líder."
+      "restricciones": "Basado en una fuente lag a -6 dB relativo a la fuente líder situada a 0°."
     },
-    "meta_tags": ["coloración", "aceptabilidad", "límites"],
-    "version_dataset": "1.8"
+    "meta_tags": ["coloración", "aceptabilidad", "límites", "timbre"],
+    "version_dataset": "1.9",
+    "ids_fusionados": ["umbral_coloracion_unacceptable"]
   },
   {
     "id_concepto": "niveles_criticos_aceptabilidad_config",
@@ -79,7 +65,7 @@ export const combFilteringData: Concept[] = [
   },
   {
     "id_concepto": "audibilidad_coloracion_separacion_espacial",
-    "categoria": "Hallazgo",
+    "categoria": "Psicoacústica",
     "tipo": "Hallazgo",
     "titulo": "Reducción de Coloración por Separación Angular",
     "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },

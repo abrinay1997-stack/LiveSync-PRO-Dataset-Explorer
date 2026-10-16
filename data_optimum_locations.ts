@@ -57,10 +57,12 @@ export const optimumLocationsData: Concept[] = [
       "definicion_detallada": "Criterio de evaluación para comparar configuraciones de medición, ponderando el error de magnitud por la consistencia de los datos.",
       "formula_latex": "$$ RF(f) = MRE(f) \\cdot \\frac{1}{1 + STD_{config}(f)} $$",
       "variables": { "RF(f)": "Risk Factor a la frecuencia f", "MRE(f)": "Magnitude Response Error", "STD_{config}(f)": "Desviación estándar de la configuración" },
-      "restricciones": "Un RF alto indica gran riesgo de tomar una decisión de ecualización incorrecta."
+      "restricciones": "Un RF alto indica gran riesgo de tomar una decisión de ecualización incorrecta. ADVERTENCIA: la fórmula tal como está transcrita contradice esta interpretación — al dividir por (1 + STD) una configuración MENOS consistente (STD mayor) obtendría un RF MENOR, es decir, menos riesgo. Si el RF debe crecer con la dispersión, el término de STD debería multiplicar (p. ej. MRE·(1 + STD)) o sumarse. No usar esta fórmula para cálculos hasta contrastarla con el white paper original."
     },
     "meta_tags": ["RF", "error", "consistencia", "estadística"],
-    "version_dataset": "1.6"
+    "version_dataset": "1.6",
+    "verificado": false,
+    "nota_verificacion": "verificar: la expresión RF = MRE/(1 + STD) es incoherente con la definición ('RF alto = más riesgo', 'ponderar el error por la consistencia'). No se pudo acceder al white paper de L-Acoustics desde este entorno para comprobar la fórmula original."
   },
   {
     "id_concepto": "definicion_low_mid_frequencies",

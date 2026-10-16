@@ -44,6 +44,11 @@ export interface Concept {
   verificado?: boolean;
   /** Advertencias pendientes de verificación (p. ej. "verificar: ..."). */
   nota_verificacion?: string;
+  /**
+   * IDs de conceptos duplicados que se fusionaron en este. Se conservan para
+   * que las referencias externas (app LiveSync Pro, RAG) sigan resolviendo.
+   */
+  ids_fusionados?: string[];
 }
 
 export interface DatasetStats {
