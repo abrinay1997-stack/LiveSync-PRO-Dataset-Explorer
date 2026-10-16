@@ -7,7 +7,7 @@ export const optimumLocationsData: Concept[] = [
     "categoria": "Metodología de Medición",
     "tipo": "Constante",
     "titulo": "Segmentación Óptima del Área de Medición",
-    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics" },
+    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics (basado en Moulin, Corteel & Montignies, AES 2019)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/07/Optimum_measurement_locations.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Región de la profundidad de la audiencia recomendada para colocar micrófonos de medición, evitando las zonas de alta variabilidad por proximidad a la fuente o paredes.",
       "formula_latex": "$$ D_{meas} \\in [1/4 D_{total}, 3/4 D_{total}] $$",
@@ -22,7 +22,7 @@ export const optimumLocationsData: Concept[] = [
     "categoria": "Metodología de Medición",
     "tipo": "Constante",
     "titulo": "Distancia Mínima a Paredes para Medición",
-    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020 },
+    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics (basado en Moulin, Corteel & Montignies, AES 2019)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/07/Optimum_measurement_locations.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Distancia de seguridad respecto a los límites físicos del recinto para evitar contaminar la respuesta con variaciones extremas de reflexiones locales.",
       "formula_latex": "$$ d_{wall} \\geq 3 \\text{ metros} $$",
@@ -37,7 +37,7 @@ export const optimumLocationsData: Concept[] = [
     "categoria": "Metodología de Medición",
     "tipo": "Constante",
     "titulo": "Número Mínimo de Ubicaciones para EQ",
-    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020 },
+    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics (basado en Moulin, Corteel & Montignies, AES 2019)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/07/Optimum_measurement_locations.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Cantidad mínima de puntos de medición espacialmente distribuidos para obtener una respuesta representativa que permita optimizar toda el área de audiencia.",
       "formula_latex": "$$ N_{locations} \\geq 8 $$",
@@ -52,7 +52,7 @@ export const optimumLocationsData: Concept[] = [
     "categoria": "Análisis de Datos",
     "tipo": "Fórmula",
     "titulo": "Fórmula del Risk Factor (RF)",
-    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020 },
+    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics (basado en Moulin, Corteel & Montignies, AES 2019)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/07/Optimum_measurement_locations.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Criterio de evaluación para comparar configuraciones de medición, ponderando el error de magnitud por la consistencia de los datos.",
       "formula_latex": "$$ RF(f) = MRE(f) \\cdot \\frac{1}{1 + STD_{config}(f)} $$",
@@ -67,7 +67,7 @@ export const optimumLocationsData: Concept[] = [
     "categoria": "Metodología de Medición",
     "tipo": "Definición",
     "titulo": "Definición de Frecuencias Low-Mid",
-    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020 },
+    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics (basado en Moulin, Corteel & Montignies, AES 2019)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/07/Optimum_measurement_locations.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Rango específico de frecuencias medias-bajas donde suelen aparecer irregularidades en el campo cercano de arreglos lineales.",
       "formula_latex": "$$ 250 \\text{ Hz} \\leq f \\leq 1000 \\text{ Hz} $$",
@@ -82,7 +82,7 @@ export const optimumLocationsData: Concept[] = [
     "categoria": "Metodología de Medición",
     "tipo": "Hallazgo",
     "titulo": "Beneficio del Layout 'Zebra'",
-    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020 },
+    "fuente": { "documento": "Optimum measurement locations for loudspeaker system equalization", "año": 2020, "autor": "L-Acoustics (basado en Moulin, Corteel & Montignies, AES 2019)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/07/Optimum_measurement_locations.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Distribución de micrófonos escalonada en ancho y profundidad (no en línea recta) que maximiza la representatividad del campo directo y reflexiones fuertes del recinto.",
       "formula_latex": "$$ Layout = \\text{Zebra} \\rightarrow RF_{min} $$",

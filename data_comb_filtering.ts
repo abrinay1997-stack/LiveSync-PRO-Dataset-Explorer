@@ -7,7 +7,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Fenómenos Acústicos",
     "tipo": "Definición",
     "titulo": "Filtrado de Peine (Comb-filtering)",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022, "autor": "Moulin & Corteel" },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Patrón de interferencia que ocurre cuando dos o más señales idénticas se presentan con un retardo corto entre ellas, resultando en cancelaciones y refuerzos periódicos en el espectro.",
       "formula_latex": "$$ f_{notch} = \\frac{2n+1}{2\\Delta t} $$",
@@ -22,7 +22,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Psicoacústica",
     "tipo": "Constante",
     "titulo": "Umbral de Localización por Suma (Summing Localization)",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Rango de retardo dentro del cual el oyente fusiona dos fuentes en una única imagen fantasma cuya posición depende de la diferencia de tiempo.",
       "formula_latex": "$$ \\Delta t < 1 \\text{ ms} $$",
@@ -37,7 +37,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Psicoacústica",
     "tipo": "Constante",
     "titulo": "Ventana del Efecto de Precedencia por Estímulo",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Límite superior de tiempo donde dos sonidos se perciben como un evento único fusionado en la dirección de la fuente líder.",
       "formula_latex": "$$ \\Delta t_{clicks} \\in [5, 10] \\text{ ms}, \\quad \\Delta t_{speech} \\approx 30 \\text{ ms} $$",
@@ -52,7 +52,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Psicoacústica",
     "tipo": "Constante",
     "titulo": "Áreas de Coloración Audible vs. Inaceptable",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Diferenciación angular de la zona donde una reflexión a -6 dB genera degradación tímbrica audible frente a la zona donde es subjetivamente inaceptable.",
       "formula_latex": "$$ \\theta_{audible} = \\pm 50^\\circ, \\quad \\theta_{unacceptable} = \\pm 41^\\circ $$",
@@ -67,7 +67,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Calidad Sonora",
     "tipo": "Constante",
     "titulo": "Niveles Críticos de Aceptabilidad por Configuración",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Nivel relativo de la fuente lag necesario para alcanzar el umbral de inaceptabilidad según la separación angular y el retardo.",
       "formula_latex": "$$ L_{crit} = \\begin{cases} -6.7 \\text{ dB} & (10 \\text{ ms} / 30^\\circ) \\\\ -2.2 \\text{ dB} & (1 \\text{ ms} / 10^\\circ) \\end{cases} $$",
@@ -82,7 +82,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Hallazgo",
     "tipo": "Hallazgo",
     "titulo": "Reducción de Coloración por Separación Angular",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "La audibilidad de la coloración espectral se reduce considerablemente cuando las fuentes están separadas espacialmente, incluso con ángulos pequeños.",
       "formula_latex": "$$ \\text{Audibilidad}_{color} \\downarrow \\text{ as } \\theta_{azimuth} \\geq 10^\\circ $$",
@@ -97,7 +97,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Calidad Sonora",
     "tipo": "Hallazgo",
     "titulo": "Delays Críticos según Material de Audio",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "El retardo donde la coloración es más inaceptable varía según el contenido armónico y temporal de la señal.",
       "formula_latex": "$$ \\Delta t_{crit, ORCH} \\approx 2 \\text{ ms}, \\quad \\Delta t_{crit, VOICE} \\approx 10 \\text{ ms} $$",
@@ -112,7 +112,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Psicoacústica",
     "tipo": "Definición",
     "titulo": "Descriptores de Degradación Espacial",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Atributos perceptuales utilizados para calificar la alteración de la imagen sonora debido al filtrado de peine.",
       "formula_latex": "$$ \\text{Degrad}_{spatial} \\in \\{ \\text{Width, Shift, 2 Sources} \\} $$",
@@ -127,7 +127,7 @@ export const combFilteringData: Concept[] = [
     "categoria": "Psicoacústica",
     "tipo": "Hallazgo",
     "titulo": "Modificación de Ancho de Imagen a -6 dB",
-    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering / AES 10551", "año": 2022 },
+    "fuente": { "documento": "Spectral and spatial perceptions of comb-filtering for sound reinforcement applications (AES 152nd Convention, Paper 10551)", "año": 2022, "autor": "Samuel Moulin & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2022/07/AES152_Moulin-22-comb-filtering-HF.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "A un nivel relativo de -6 dB, la fuente retrasada (lag source) modifica principalmente el ancho percibido de la imagen sonora, sin desplazar severamente la localización.",
       "formula_latex": "$$ L_{lag} = -6 \\text{ dB} \\rightarrow \\Delta \\text{Width} \\uparrow $$",

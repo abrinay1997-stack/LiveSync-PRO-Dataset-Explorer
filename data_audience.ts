@@ -7,10 +7,10 @@ export const audienceData: Concept[] = [
     "categoria": "Física Acústica",
     "tipo": "Definición",
     "titulo": "Audiencia como Medio Poroso",
-    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2", "año": 2024, "autor": "Mouterde et al. (AES 10184)" },
+    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2: Impact on Time Alignment of Loudspeaker Systems (AES 157th Convention, Paper 10184)", "año": 2024, "autor": "Thomas Mouterde, Nicolas Epain & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2025/08/Audience_Effect_in_the_Low-Frequency_Range_Part_2__Impact_on_Time_Alignment_of_Loudspeaker_Systems__doc.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "La audiencia puede modelarse como un material poroso que reduce la velocidad de propagación de la onda sonora. La velocidad disminuye a medida que aumenta la densidad de personas.",
-      "formula_latex": "$$ v_{sound} = f(\text{densidad\_audiencia}) \\downarrow $$",
+      "formula_latex": "$$ v_{sound} = f(\text{densidad_audiencia}) \\downarrow $$",
       "variables": { "v_{sound}": "Velocidad del sonido en la audiencia" },
       "restricciones": "Impacto crítico en fuentes cercanas al suelo."
     },
@@ -22,7 +22,7 @@ export const audienceData: Concept[] = [
     "categoria": "Ingeniería de Audio",
     "tipo": "Constante",
     "titulo": "Desfase por Audiencia en Subwoofers de Suelo",
-    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2", "año": 2024 },
+    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2: Impact on Time Alignment of Loudspeaker Systems (AES 157th Convention, Paper 10184)", "año": 2024, "autor": "Thomas Mouterde, Nicolas Epain & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2025/08/Audience_Effect_in_the_Low-Frequency_Range_Part_2__Impact_on_Time_Alignment_of_Loudspeaker_Systems__doc.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Valores de cambio de fase observados en subwoofers apoyados en suelo debido a la presencia física del público, que rompe el alineamiento optimizado en salas vacías.",
       "formula_latex": "$$ \\Delta \\phi_{50Hz} \\approx 105^\\circ, \\quad \\Delta \\phi_{75Hz} \\approx 180^\\circ $$",
@@ -37,7 +37,7 @@ export const audienceData: Concept[] = [
     "categoria": "Física Acústica",
     "tipo": "Hallazgo",
     "titulo": "Ralentización de Propagación vs. Altura de Fuente",
-    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2", "año": 2024 },
+    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2: Impact on Time Alignment of Loudspeaker Systems (AES 157th Convention, Paper 10184)", "año": 2024, "autor": "Thomas Mouterde, Nicolas Epain & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2025/08/Audience_Effect_in_the_Low-Frequency_Range_Part_2__Impact_on_Time_Alignment_of_Loudspeaker_Systems__doc.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "La audiencia ralentiza las fuentes cercanas al suelo de forma mucho más significativa que las fuentes voladas (flown). Las fuentes por encima de los 5m presentan un desfase casi insignificante.",
       "formula_latex": "$$ z_{source} > 5m \\rightarrow \\text{PS}(f) \\approx 0 $$",
@@ -52,7 +52,7 @@ export const audienceData: Concept[] = [
     "categoria": "Calibración / Sistemas",
     "tipo": "Hallazgo",
     "titulo": "Ajuste de Delay para Realineamiento con Audiencia",
-    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2", "año": 2024 },
+    "fuente": { "documento": "Audience Effect in the Low-Frequency Range, Part 2: Impact on Time Alignment of Loudspeaker Systems (AES 157th Convention, Paper 10184)", "año": 2024, "autor": "Thomas Mouterde, Nicolas Epain & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2025/08/Audience_Effect_in_the_Low-Frequency_Range_Part_2__Impact_on_Time_Alignment_of_Loudspeaker_Systems__doc.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Para compensar la ralentización de los subwoofers en suelo frente a los volados, se requiere reducir el delay aplicado a los subwoofers de suelo una vez que la audiencia está presente.",
       "formula_latex": "$$ \\text{Delay}_{update} \\approx -3.84 \\text{ a } -6 \\text{ ms} $$",

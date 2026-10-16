@@ -2,13 +2,13 @@
 import { Concept } from './types';
 
 export const scientificRefsData: Concept[] = [
-  // CATEGORÍA 1: ATMOSFÉRICO & AMBIENTAL
+  // ATMOSFÉRICO & AMBIENTAL
   {
     "id_concepto": "iso_9613_1_atenuacion",
     "categoria": "Atmosférico & Ambiental",
     "tipo": "Fórmula",
     "titulo": "Coeficiente de Atenuación Atmosférica (ISO 9613-1)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1993, "autor": "ISO" },
+    "fuente": { "documento": "ISO 9613-1:1993 — Acoustics: Attenuation of sound during propagation outdoors, Part 1: Calculation of the absorption of sound by the atmosphere", "año": 1993, "autor": "ISO (ISO/TC 43/SC 1)", "seccion": "Cláusula 6, ecs. (3)–(5)" },
     "contenido_tecnico": {
       "definicion_detallada": "Incluye la absorción clásica y la relajación molecular de O₂ y N₂. Es fundamental para predicciones de largo alcance.",
       "formula_latex": "$$ \\alpha = 8.686 f^2 [1.84 \\cdot 10^{-11} \\frac{\\sqrt{T/T_r}}{p_r} + (T/T_r)^{-2.5} (\\dots)] $$",
@@ -23,7 +23,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Atmosférico & Ambiental",
     "tipo": "Fórmula",
     "titulo": "Concentración Molar de Vapor de Agua",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "ISO 9613-1:1993 — Acoustics: Attenuation of sound during propagation outdoors, Part 1: Calculation of the absorption of sound by the atmosphere", "año": 1993, "autor": "ISO (ISO/TC 43/SC 1)", "seccion": "Annex B, ecs. (B.1)–(B.3)" },
     "contenido_tecnico": {
       "definicion_detallada": "Determina cómo la humedad afecta las frecuencias de relajación molecular en el aire.",
       "formula_latex": "$$ h = (RH/100) \\cdot (p_{sat}/p) $$",
@@ -38,7 +38,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Atmosférico & Ambiental",
     "tipo": "Fórmula",
     "titulo": "Velocidad del Sonido en Aire (Aprox. Lineal)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Fundamentals of Acoustics, 4th ed.", "año": 2000, "autor": "L. E. Kinsler, A. R. Frey, A. B. Coppens & J. V. Sanders" },
     "contenido_tecnico": {
       "definicion_detallada": "Aproximación estándar para ingeniería de campo.",
       "formula_latex": "$$ c = 331.3 + 0.6T $$",
@@ -53,7 +53,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Atmosférico & Ambiental",
     "tipo": "Fórmula",
     "titulo": "Refracción por Gradiente de Viento",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "On the comparison of flown and ground-stacked subwoofer configurations regarding noise pollution (AES 151st Convention, Paper 10533)", "año": 2021, "autor": "Thomas Mouterde & Etienne Corteel (L-Acoustics)", "url": "https://www.l-acoustics.com/wp-content/uploads/2021/10/AES151_MouterdeEtAl._noisePollutionGroundVsFlown.pdf" },
     "contenido_tecnico": {
       "definicion_detallada": "Componente vectorial del viento que altera el frente de onda.",
       "formula_latex": "$$ \\Delta c = v \\cdot \\cos(\\theta) $$",
@@ -63,14 +63,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "viento", "refracción"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 2: TEORÍA ACÚSTICA
+  // TEORÍA ACÚSTICA
   {
     "id_concepto": "ley_inverso_cuadrado",
     "categoria": "Teoría Acústica",
     "tipo": "Fórmula",
     "titulo": "Ley del Inverso del Cuadrado (Fuente Puntual)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Fundamentals of Acoustics, 4th ed.", "año": 2000, "autor": "L. E. Kinsler, A. R. Frey, A. B. Coppens & J. V. Sanders" },
     "contenido_tecnico": {
       "definicion_detallada": "Reducción de nivel por expansión esférica.",
       "formula_latex": "$$ SPL(d) = SPL(d_0) - 20 \\log_{10}(d/d_0) $$",
@@ -85,7 +84,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Teoría Acústica",
     "tipo": "Fórmula",
     "titulo": "Propagación Cilíndrica (Line Array)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1957, "autor": "Harry F. Olson" },
+    "fuente": { "documento": "Acoustical Engineering", "año": 1957, "autor": "Harry F. Olson" },
     "contenido_tecnico": {
       "definicion_detallada": "Decaimiento de 3dB por duplicación de distancia en la zona de acoplamiento lineal.",
       "formula_latex": "$$ SPL(d) = SPL(d_0) - 10 \\log_{10}(d/d_0) $$",
@@ -100,7 +99,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Teoría Acústica",
     "tipo": "Constante",
     "titulo": "WST - Wavefront Sculpture Technology",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1992, "autor": "Christian Heil" },
+    "fuente": { "documento": "Sound Fields Radiated by Multiple Sound Sources Arrays (AES 92nd Convention, Preprint 3269); criterios ampliados en 'Wavefront Sculpture Technology', JAES 51(10), 2003", "año": 1992, "autor": "Christian Heil & Marcel Urban (L-Acoustics); Urban, Heil & Bauman (2003)" },
     "contenido_tecnico": {
       "definicion_detallada": "Criterio de espaciado para evitar lóbulos de interferencia en arreglos lineales.",
       "formula_latex": "$$ d < \\lambda/2 = c / (2f) $$",
@@ -115,7 +114,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Teoría Acústica",
     "tipo": "Fórmula",
     "titulo": "Directividad de Fuente Lineal (Olson)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1957, "autor": "Harry F. Olson" },
+    "fuente": { "documento": "Acoustical Engineering", "año": 1957, "autor": "Harry F. Olson" },
     "contenido_tecnico": {
       "definicion_detallada": "Función sinc que describe el patrón de radiación de un segmento de línea.",
       "formula_latex": "$$ R(\\theta) = |\\sin(x)/x| \\quad \\text{donde } x = (\\pi H \\sin(\\theta))/\\lambda $$",
@@ -130,7 +129,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Teoría Acústica",
     "tipo": "Fórmula",
     "titulo": "Line Array Limit (Transición de Campo)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Wavefront Sculpture Technology (J. Audio Eng. Soc., Vol. 51 No. 10)", "año": 2003, "autor": "Marcel Urban, Christian Heil & Paul Bauman (L-Acoustics)" },
     "contenido_tecnico": {
       "definicion_detallada": "Punto de transición donde el frente de onda cilíndrico se vuelve esférico.",
       "formula_latex": "$$ D_{limit} \\approx H^2 f / (2c) $$",
@@ -140,14 +139,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "transición", "campo cercano"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 3: ACÚSTICA DE SALAS
+  // ACÚSTICA DE SALAS
   {
     "id_concepto": "sabine_rt60",
     "categoria": "Acústica de Salas",
     "tipo": "Fórmula",
     "titulo": "Fórmula de Sabine (RT60)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1898, "autor": "Wallace Clement Sabine" },
+    "fuente": { "documento": "Reverberation (The American Architect and The Engineering Record, 1900); reimpreso en Collected Papers on Acoustics (1922)", "año": 1900, "autor": "Wallace Clement Sabine" },
     "contenido_tecnico": {
       "definicion_detallada": "Tiempo de decaimiento de 60dB en salas con campo difuso.",
       "formula_latex": "$$ RT60 = 0.161 V / A $$",
@@ -162,7 +160,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Acústica de Salas",
     "tipo": "Fórmula",
     "titulo": "Frecuencias de Modos Propios (Eigenmodes)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Room Acoustics, 6th ed.", "año": 2016, "autor": "Heinrich Kuttruff" },
     "contenido_tecnico": {
       "definicion_detallada": "Resonancias naturales de un espacio cerrado según sus dimensiones.",
       "formula_latex": "$$ f(p,q,r) = (c/2) \\sqrt{(p/L)^2 + (q/W)^2 + (r/H)^2} $$",
@@ -177,7 +175,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Acústica de Salas",
     "tipo": "Fórmula",
     "titulo": "Distancia Crítica (Dc)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Room Acoustics, 6th ed.", "año": 2016, "autor": "Heinrich Kuttruff" },
     "contenido_tecnico": {
       "definicion_detallada": "Punto donde el nivel de sonido directo es igual al nivel reverberante.",
       "formula_latex": "$$ Dc = 0.057 \\sqrt{Q V / RT60} $$",
@@ -192,7 +190,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Acústica de Salas",
     "tipo": "Hallazgo",
     "titulo": "STI - Speech Transmission Index",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024, "autor": "IEC 60268-16" },
+    "fuente": { "documento": "IEC 60268-16:2020 — Sound system equipment, Part 16: Objective rating of speech intelligibility by speech transmission index", "año": 2020, "autor": "IEC (TC 100); método de T. Houtgast & H. J. M. Steeneken" },
     "contenido_tecnico": {
       "definicion_detallada": "Métrica de calidad de transferencia del habla basada en MTF, SNR y RT60.",
       "formula_latex": "$$ STI = f(MTF, SNR, RT60) $$",
@@ -202,14 +200,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "habla", "calidad"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 4: FASE & ALINEAMIENTO
+  // FASE & ALINEAMIENTO
   {
     "id_concepto": "diferencia_fase_dist",
     "categoria": "Fase & Alineamiento",
     "tipo": "Fórmula",
     "titulo": "Diferencia de Fase por Distancia",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Sound Systems: Design and Optimization, 3rd ed.", "año": 2016, "autor": "Bob McCarthy" },
     "contenido_tecnico": {
       "definicion_detallada": "Relación entre el tiempo de llegada y el ángulo de fase.",
       "formula_latex": "$$ \\Delta \\phi = 360 f \\Delta t $$",
@@ -224,7 +221,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Fase & Alineamiento",
     "tipo": "Fórmula",
     "titulo": "Suma Coherente (Vectorial)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Sound Systems: Design and Optimization, 3rd ed.", "año": 2016, "autor": "Bob McCarthy" },
     "contenido_tecnico": {
       "definicion_detallada": "Cálculo del nivel total resultante de la suma de dos señales con desfase.",
       "formula_latex": "$$ L_{total} = 20 \\log_{10} \\sqrt{2 + 2 \\cos(\\Delta \\phi)} $$",
@@ -239,7 +236,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Fase & Alineamiento",
     "tipo": "Fórmula",
     "titulo": "Group Delay Linkwitz-Riley 24dB/oct",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1976, "autor": "Linkwitz & Riley" },
+    "fuente": { "documento": "Active Crossover Networks for Noncoincident Drivers (J. Audio Eng. Soc., Vol. 24 No. 1)", "año": 1976, "autor": "Siegfried H. Linkwitz (filtro desarrollado con Russ Riley)" },
     "contenido_tecnico": {
       "definicion_detallada": "Retardo de grupo simétrico característico de los filtros LR4.",
       "formula_latex": "$$ \\tau_g = 0.5 / f_c $$",
@@ -249,14 +246,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "filtros", "delay"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 5: INGENIERÍA ELÉCTRICA
+  // INGENIERÍA ELÉCTRICA
   {
     "id_concepto": "ley_de_ohm_base",
     "categoria": "Ingeniería Eléctrica",
     "tipo": "Fórmula",
     "titulo": "Leyes Fundamentales de Ohm y Potencia",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 1827, "autor": "Georg Simon Ohm" },
+    "fuente": { "documento": "Die galvanische Kette, mathematisch bearbeitet", "año": 1827, "autor": "Georg Simon Ohm (ley de Joule para P = I²R)" },
     "contenido_tecnico": {
       "definicion_detallada": "Relaciones básicas de corriente, voltaje, resistencia y potencia.",
       "formula_latex": "$$ V = I R \\quad | \\quad P = V I \\quad | \\quad P = I^2 R $$",
@@ -271,7 +267,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Ingeniería Eléctrica",
     "tipo": "Fórmula",
     "titulo": "Caída de Voltaje en Cable (NEC)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024, "autor": "NEC Art 210.19" },
+    "fuente": { "documento": "NFPA 70 — National Electrical Code (NEC), ed. 2023", "año": 2023, "autor": "NFPA", "seccion": "Art. 210.19(A), nota informativa" },
     "contenido_tecnico": {
       "definicion_detallada": "Pérdida de potencial por resistencia del conductor.",
       "formula_latex": "$$ V_{drop} = I \\cdot (\\rho \\cdot 2L / A) $$",
@@ -286,7 +282,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Ingeniería Eléctrica",
     "tipo": "Fórmula",
     "titulo": "Potencia Trifásica Equilibrada",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024, "autor": "IEC 60038" },
+    "fuente": { "documento": "Power System Analysis", "año": 1994, "autor": "John J. Grainger & William D. Stevenson Jr." },
     "contenido_tecnico": {
       "definicion_detallada": "Cálculo de potencia real en sistemas de 3 fases.",
       "formula_latex": "$$ P = \\sqrt{3} V_{line} I_{line} PF $$",
@@ -296,14 +292,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "trifásica", "watts"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 6: RIGGING & SEGURIDAD
+  // RIGGING & SEGURIDAD
   {
     "id_concepto": "wll_safety_factor",
     "categoria": "Rigging & Seguridad",
     "tipo": "Fórmula",
     "titulo": "WLL - Working Load Limit",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024, "autor": "EN 13157" },
+    "fuente": { "documento": "Entertainment Rigging: A Practical Guide for Riggers, Designers and Managers", "año": 2002, "autor": "Harry Donovan" },
     "contenido_tecnico": {
       "definicion_detallada": "Carga de trabajo segura basada en la carga de rotura y factor de seguridad.",
       "formula_latex": "$$ WLL = MBS / SF $$",
@@ -318,7 +313,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Rigging & Seguridad",
     "tipo": "Fórmula",
     "titulo": "Geometría de Bridle (Tensión en Patas)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Entertainment Rigging: A Practical Guide for Riggers, Designers and Managers", "año": 2002, "autor": "Harry Donovan" },
     "contenido_tecnico": {
       "definicion_detallada": "Distribución de carga en puntos de suspensión angulados.",
       "formula_latex": "$$ T = (W/2) / \\cos(\\theta) $$",
@@ -333,7 +328,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Rigging & Seguridad",
     "tipo": "Fórmula",
     "titulo": "Carga de Viento (Drag Force)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024, "autor": "EN 1991-1-4" },
+    "fuente": { "documento": "EN 1991-1-4:2005 — Eurocódigo 1: Acciones en estructuras, Parte 1-4: Acciones generales, acciones de viento", "año": 2005, "autor": "CEN (Comité Europeo de Normalización)" },
     "contenido_tecnico": {
       "definicion_detallada": "Presión dinámica ejercida por el viento sobre superficies planas o arreglos.",
       "formula_latex": "$$ F = 0.5 \\rho v^2 Cd A $$",
@@ -343,14 +338,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "viento", "drag"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 7: AUDIO DIGITAL
+  // AUDIO DIGITAL
   {
     "id_concepto": "ancho_banda_dante",
     "categoria": "Audio Digital",
     "tipo": "Fórmula",
     "titulo": "Ancho de Banda Dante (Estimación)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024, "autor": "Audinate" },
+    "fuente": { "documento": "AES67-2018 — High-performance streaming audio-over-IP interoperability (cabeceras: IEEE 802.3, RFC 791, RFC 768, RFC 3550)", "año": 2018, "autor": "Audio Engineering Society (AES)" },
     "contenido_tecnico": {
       "definicion_detallada": "Carga de red considerando overhead de paquetes.",
       "formula_latex": "$$ BW = Fs \\cdot BitDepth \\cdot Channels \\cdot 1.2 $$",
@@ -365,7 +359,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Audio Digital",
     "tipo": "Constante",
     "titulo": "PTP - Precision Time Protocol (IEEE 1588)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2008, "autor": "IEEE 1588" },
+    "fuente": { "documento": "IEEE Std 1588-2008 (PTPv2) e IEEE Std 802.1AS-2020 (gPTP)", "año": 2008, "autor": "IEEE" },
     "contenido_tecnico": {
       "definicion_detallada": "Sincronización necesaria para audio sobre IP sin distorsión de fase.",
       "formula_latex": "$$ Jitter < 1 \\mu s $$",
@@ -375,14 +369,13 @@ export const scientificRefsData: Concept[] = [
     "meta_tags": ["LSP-IN-USE", "PTP", "sincronía"],
     "version_dataset": "3.0"
   },
-
-  // CATEGORÍA 8: DINÁMICA TÉRMICA
+  // DINÁMICA TÉRMICA
   {
     "id_concepto": "compresion_potencia_thermal",
     "categoria": "Dinámica Térmica",
     "tipo": "Fórmula",
     "titulo": "Compresión de Potencia (Pérdida Térmica)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Heat Dissipation and Power Compression in Loudspeakers (J. Audio Eng. Soc., Vol. 40 No. 1/2)", "año": 1992, "autor": "Douglas J. Button" },
     "contenido_tecnico": {
       "definicion_detallada": "Pérdida de eficiencia por el aumento de temperatura en la bobina.",
       "formula_latex": "$$ \\Delta L = -10 \\log_{10}[1 + \\alpha (T - T_0)] $$",
@@ -397,7 +390,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Dinámica Térmica",
     "tipo": "Fórmula",
     "titulo": "Resistencia de Bobina vs Temperatura",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "IEC 60028:1925 — International standard of resistance for copper", "año": 1925, "autor": "IEC" },
     "contenido_tecnico": {
       "definicion_detallada": "Cambio en la impedancia DC por calor.",
       "formula_latex": "$$ R(T) = R_0 [1 + \\alpha (T - T_0)] $$",
@@ -412,7 +405,7 @@ export const scientificRefsData: Concept[] = [
     "categoria": "Dinámica Térmica",
     "tipo": "Fórmula",
     "titulo": "Constante de Tiempo Térmica (τ)",
-    "fuente": { "documento": "REFERENCIAS CIENTÍFICAS DE LIVESYNC PRO", "año": 2024 },
+    "fuente": { "documento": "Heat-Transfer Mechanisms in Loudspeakers: Analysis, Measurement, and Design (J. Audio Eng. Soc., Vol. 35 No. 10)", "año": 1987, "autor": "Clifford A. Henricksen" },
     "contenido_tecnico": {
       "definicion_detallada": "Tiempo que tarda un driver en enfriarse o calentarse.",
       "formula_latex": "$$ \\tau = m Cp / h $$",
