@@ -1,0 +1,11 @@
+// Cloudflare Workers (sólo assets estáticos): sirve la SPA compilada en ./dist.
+// Despliegue: `npm run build && npx wrangler deploy` (o Workers Builds conectado al repo
+// con build command `npm run build`). Netlify (netlify.toml) se mantiene en paralelo.
+{
+  "name": "livesync-knowledge",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
