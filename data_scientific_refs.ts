@@ -307,7 +307,8 @@ export const scientificRefsData: Concept[] = [
       "ejemplo": "16 A, 50 m, 2.5 mm² de cobre: R = 0.0172·100/2.5 = 0.688 Ω → V_drop ≈ 11.0 V, es decir 4.8 % de 230 V (supera la recomendación del 3 %)."
     },
     "meta_tags": ["LSP-IN-USE", "NEC", "cables"],
-    "version_dataset": "3.0"
+    "version_dataset": "3.1",
+    "verificado": true
   },
   {
     "id_concepto": "potencia_trifasica_p",

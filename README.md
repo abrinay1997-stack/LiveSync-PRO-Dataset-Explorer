@@ -1,20 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# LiveSync PRO — Dataset Explorer
 
-# Run and deploy your AI Studio app
+Base de conocimiento científico del ecosistema [LiveSync Pro](https://livesyncpro.com): fórmulas,
+definiciones, constantes y hallazgos de acústica y refuerzo sonoro (propagación atmosférica, line
+arrays, psicoacústica, medición, redes de audio, electricidad, rigging...). Cada concepto cita a su
+autor original —normas ISO/IEC/IEEE, papers AES, manuales de AFMG y L-Acoustics, libros de
+referencia—; el material de terceros pertenece a sus autores.
 
-This contains everything you need to run your app locally.
+## Uso
 
-View your app in AI Studio: https://ai.studio/apps/drive/1RUz08ukguZRYJt1IMRIj5UKSZRL3Fiic
+Requisitos: Node 22.
 
-## Run Locally
+```bash
+npm ci
+npm run dev                # http://localhost:3000
+npm run build              # genera dist/
+npm run verify:formulas    # recalcula los ejemplos resueltos
+npm run export:knowledge   # regenera knowledge/concepts.jsonl (para el asistente de IA / RAG)
+```
 
-**Prerequisites:**  Node.js
+## Datos
 
+- `types.ts` — modelo `Concept`.
+- `data_*.ts` — un módulo por documento o tema; `data.ts` los agrega.
+- `knowledge/concepts.jsonl` — exportación en JSON Lines (una línea por concepto) para ingesta.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Despliegue
+
+- Netlify: `netlify.toml` (build `npm run build`, publica `dist/`).
+- Cloudflare Workers (assets estáticos): `wrangler.jsonc` → `npm run deploy:cloudflare`.
+
+Las reglas de contribución (procedencia, exactitud, verificación numérica) y el estado del proyecto
+están en [`CLAUDE.md`](./CLAUDE.md).
