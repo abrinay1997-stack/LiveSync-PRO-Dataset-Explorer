@@ -5,6 +5,24 @@ import { Search, Filter, Database, Info, Activity, Menu, X, AlertTriangle, Check
 
 const CONCEPT_TYPES: ConceptType[] = ['Fórmula', 'Definición', 'Constante', 'Hallazgo'];
 
+/** Logo de la marca; si el CDN externo falla se usa el icono local (public/favicon.svg). */
+const LOGO_URL = 'https://hostedimages-cdn.aweber-static.com/MjM0MTQ0NQ==/optimized/20657f92efa544489526caee3beef9d2.png';
+const LOGO_FALLBACK = 'favicon.svg'; // relativo al documento: vale en / y en /ciencia/
+const useLocalLogo = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  if (!e.currentTarget.src.endsWith('favicon.svg')) e.currentTarget.src = LOGO_FALLBACK;
+};
+
+/** Resuelve un id de concepto (vigente o fusionado) para los enlaces profundos `#id`. */
+const conceptById = new Map<string, Concept>();
+for (const c of acousticDataset) conceptById.set(c.id_concepto, c);
+for (const c of acousticDataset) for (const old of c.ids_fusionados ?? []) if (!conceptById.has(old)) conceptById.set(old, c);
+
+const conceptFromHash = (): string | null => {
+  let id = window.location.hash.slice(1);
+  try { id = decodeURIComponent(id); } catch { return null; }
+  return conceptById.get(id)?.id_concepto ?? null;
+};
+
 /** Texto en minúsculas y sin diacríticos, para que "presion" encuentre "presión". */
 const normalize = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
@@ -139,9 +157,13 @@ const ConceptCard: React.FC<{ concept: Concept; index: number }> = ({ concept, i
 
       <div className="flex justify-between items-start mb-6 gap-4">
         <div className="flex flex-col min-w-0">
-          <span className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1 break-all">
+          <a
+            href={`#${concept.id_concepto}`}
+            className="text-[9px] font-bold text-slate-500 hover:text-cyan-400 uppercase tracking-[0.15em] mb-1 break-all transition-colors"
+            title="Enlace directo a este concepto"
+          >
             ID: {concept.id_concepto}
-          </span>
+          </a>
           <div className="flex gap-2 items-center flex-wrap">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" aria-hidden="true"></span>
             <span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">
@@ -244,12 +266,26 @@ export default function App() {
   const [typeFilter, setTypeFilter] = useState<string>('Todos');
   const [sourceFilter, setSourceFilter] = useState<string>('Todas');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [focusId, setFocusId] = useState<string | null>(() => conceptFromHash());
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const stats = useMemo(() => getDatasetStats(), []);
   const sources = useMemo(() => Array.from(new Set(acousticDataset.map(d => d.fuente.documento))), []);
 
+  // Enlaces profundos: #id_concepto muestra solo ese concepto (lo usan el manual y las citas de la IA).
+  useEffect(() => {
+    const onHash = () => setFocusId(conceptFromHash());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  const clearFocus = () => {
+    setFocusId(null);
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  };
+
   const filtered = useMemo(() => {
+    if (focusId) return acousticDataset.filter(c => c.id_concepto === focusId);
     const terms = normalize(query).split(/\s+/).filter(Boolean);
     return acousticDataset.filter(c => {
       const haystack = searchIndex.get(c.id_concepto) ?? '';
@@ -258,7 +294,7 @@ export default function App() {
       const matchesSource = sourceFilter === 'Todas' || c.fuente.documento === sourceFilter;
       return matchesQuery && matchesType && matchesSource;
     });
-  }, [query, typeFilter, sourceFilter]);
+  }, [query, typeFilter, sourceFilter, focusId]);
 
   // Cerrar el menú lateral con Escape (móvil).
   useEffect(() => {
@@ -274,15 +310,16 @@ export default function App() {
   }, [isSidebarOpen]);
 
   const handleSourceSelect = (s: string) => {
+    if (focusId) clearFocus();
     setSourceFilter(s);
     setIsSidebarOpen(false); // Cierra el menú en móviles tras seleccionar
   };
 
-  const resetFilters = () => { setQuery(''); setTypeFilter('Todos'); setSourceFilter('Todas'); };
+  const resetFilters = () => { clearFocus(); setQuery(''); setTypeFilter('Todos'); setSourceFilter('Todas'); };
 
   return (
     <div className="flex h-screen bg-[#050505] text-slate-400 font-sans relative overflow-hidden">
-      <ReadingProgress contentKey={`${query}|${typeFilter}|${sourceFilter}`} />
+      <ReadingProgress contentKey={`${query}|${typeFilter}|${sourceFilter}|${focusId ?? ''}`} />
 
       {/* Fondo del menú lateral en móvil */}
       {isSidebarOpen && (
@@ -316,7 +353,8 @@ export default function App() {
             <div className="relative w-16 h-16 mb-6 group cursor-pointer">
               <div className="absolute inset-0 bg-cyan-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity" aria-hidden="true"></div>
               <img
-                src="https://hostedimages-cdn.aweber-static.com/MjM0MTQ0NQ==/optimized/20657f92efa544489526caee3beef9d2.png"
+                src={LOGO_URL}
+                onError={useLocalLogo}
                 alt="Logotipo de LiveSync Pro"
                 className="relative w-full h-full object-contain opacity-90"
               />
@@ -413,7 +451,8 @@ export default function App() {
                   <div className="relative w-8 h-8 group">
                     <div className="absolute inset-0 bg-cyan-500 blur-lg opacity-30" aria-hidden="true"></div>
                     <img
-                      src="https://hostedimages-cdn.aweber-static.com/MjM0MTQ0NQ==/optimized/20657f92efa544489526caee3beef9d2.png"
+                      src={LOGO_URL}
+                onError={useLocalLogo}
                       alt=""
                       className="relative w-full h-full object-contain"
                     />
@@ -442,7 +481,7 @@ export default function App() {
                   placeholder="Buscar en títulos, definiciones, variables, restricciones, autores..."
                   aria-label="Buscar conceptos"
                   value={query}
-                  onChange={e => setQuery(e.target.value)}
+                  onChange={e => { if (focusId) clearFocus(); setQuery(e.target.value); }}
                 />
               </div>
 
@@ -453,7 +492,7 @@ export default function App() {
                     className="w-full bg-[#1a1a1a] border border-white/10 rounded-2xl pl-10 pr-10 py-4 text-xs font-bold text-white uppercase tracking-widest outline-none focus:border-cyan-500/50 appearance-none cursor-pointer"
                     aria-label="Filtrar por tipo de concepto"
                     value={typeFilter}
-                    onChange={e => setTypeFilter(e.target.value)}
+                    onChange={e => { if (focusId) clearFocus(); setTypeFilter(e.target.value); }}
                   >
                     {['Todos', ...CONCEPT_TYPES].map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
@@ -466,6 +505,19 @@ export default function App() {
         {/* Resultados */}
         <div className="px-6 md:px-8 lg:px-16 py-8 md:py-16 max-w-6xl mx-auto min-h-screen">
           <p className="sr-only" aria-live="polite">{filtered.length} conceptos encontrados</p>
+          {focusId && (
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border border-cyan-500/20 bg-cyan-500/5 rounded-2xl px-6 py-4 animate-fade-in">
+              <p className="text-xs text-slate-300">
+                Mostrando el concepto <code className="text-cyan-400">{focusId}</code>
+              </p>
+              <button
+                onClick={clearFocus}
+                className="text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-cyan-400 transition-colors"
+              >
+                Ver todos los conceptos
+              </button>
+            </div>
+          )}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
             {filtered.map((concept, idx) => (
               <ConceptCard key={concept.id_concepto} concept={concept} index={idx} />

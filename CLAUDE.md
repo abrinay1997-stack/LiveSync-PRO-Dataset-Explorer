@@ -14,7 +14,9 @@
 
 Este repo cumple dos funciones:
 1. **Explorador web** (React) para consultar los conceptos. Hoy en `data-livesync.netlify.app`;
-   destino: Cloudflare Worker `livesync-knowledge` dentro de la plataforma unificada.
+   destino: **`livesyncpro.com/ciencia/`**, compilado dentro del Worker de la app principal
+   (`LiveSync-Pro/scripts/build-platform.mjs`). Enlaces profundos por concepto: `#<id_concepto>`
+   (también resuelve `ids_fusionados`); los usan las citas del asistente de IA.
 2. **Fuente de verdad del conocimiento** para el asistente de IA de LiveSync Pro (RAG con Vectorize):
    `knowledge/concepts.jsonl` es el artefacto que se ingiere.
 
@@ -105,7 +107,14 @@ El archivo se regenera y se versiona en el mismo commit que cualquier cambio de 
   Validado con `npx wrangler deploy --dry-run`. Despliegue con `npm run deploy:cloudflare`, Workers
   Builds conectado al repo o GitHub Actions con `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`.
   En el entorno cloud de agentes `api.cloudflare.com` está bloqueado: no se puede desplegar desde ahí.
-- Ambos destinos conviven hasta el corte de DNS de la plataforma unificada.
+- **Plataforma unificada (destino final):** la app principal compila este repo con
+  `vite build --outDir <app>/dist/ciencia` y lo sirve en `livesyncpro.com/ciencia/` (mismo Worker).
+  Por eso `vite.config.ts` usa `base: './'` y todo recurso del HTML/JS debe ser **relativo**
+  (`favicon.svg`, no `/favicon.svg` en código; Vite reescribe el `index.html`). El CI de la app
+  clona este repo (público) en cada despliegue: los cambios llegan a producción con el siguiente
+  deploy de la app. El Worker propio `livesync-knowledge` queda como alternativa.
+- Netlify, Worker propio y plataforma conviven hasta el corte de DNS; después
+  `data-livesync.netlify.app` debe redirigir a `livesyncpro.com/ciencia/`.
 
 ## 8. Estado y pendientes (actualizar en cada sesión)
 
@@ -128,8 +137,9 @@ Pendientes de verificación (no se pudo acceder a las fuentes desde el entorno d
       vs. manual EASE) y STI (IEC 60268-16 vs. manual SysTune). Valorar referencias cruzadas.
 - [ ] Taxonomía: unificar categorías casi duplicadas ("Meteorología / Acústica" vs. "Meteorología /
       Acústica Ambiental", "Medición" vs. "Metodología de Medición"...).
-- [ ] Fijar Tailwind (hoy Play CDN sin versión) o pasarlo a build-time; alojar el logo en el propio
-      sitio (hoy en un CDN de terceros).
+- [ ] Fijar Tailwind (hoy Play CDN sin versión) o pasarlo a build-time.
+- [ ] Logo: sigue en el CDN de aweber (desde el entorno de agentes el host no resolvía el 2026-10-17);
+      si falla se muestra `public/favicon.svg`. Subir el PNG original a `public/` cuando el dueño lo aporte.
 
 ## 9. Convenciones de trabajo
 
