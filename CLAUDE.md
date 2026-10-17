@@ -26,10 +26,13 @@ Idioma: contenido, UI y documentación en **español**; código e identificadore
 ## 2. Stack y comandos
 
 - React 19 + TypeScript 5.7 + Vite 6, `lucide-react`. Node 22.
-- Tailwind por CDN (`index.html`, sin versión fijada — ver pendientes).
-- KaTeX 0.16.22 por CDN de jsDelivr **con SRI** (`integrity` sha384 + `crossorigin`). Si se cambia
-  de versión, recalcular los hashes desde el paquete npm:
-  `npm pack katex@X && tar xzf katex-X.tgz && openssl dgst -sha384 -binary package/dist/katex.min.js | openssl base64 -A`.
+- Tailwind 3.4 **compilado** en el build (`tailwind.config.js`, `postcss.config.js`, `index.css`).
+  Las clases deben aparecer completas en el código (nada de `text-${color}`): el compilador solo ve
+  lo que está escrito. Estilos propios y animaciones en el `<style>` de `index.html`.
+- KaTeX 0.16.22 **empaquetado** (npm) y cargado bajo demanda (`import('katex')` + su CSS en
+  `MathRenderer`, App.tsx): sin CDN, funciona sin conexión y permite una CSP estricta. Si la carga
+  falla se muestra `formula_texto`.
+- Sin dependencias de terceros en runtime salvo el logo (ver pendientes).
 
 ```bash
 npm ci                      # dependencias (package-lock.json versionado)
@@ -118,7 +121,7 @@ El archivo se regenera y se versiona en el mismo commit que cualquier cambio de 
 
 ## 8. Estado y pendientes (actualizar en cada sesión)
 
-Última actualización: **2026-10-16** — 136 conceptos (tras fusionar 3 duplicados), 12 verificados.
+Última actualización: **2026-10-17** — 136 conceptos (tras fusionar 3 duplicados), 12 verificados.
 
 Pendientes de verificación (no se pudo acceder a las fuentes desde el entorno de agentes):
 - [ ] `formula_risk_factor_eq`: RF = MRE/(1+STD) contradice su definición; contrastar con el white
@@ -137,7 +140,6 @@ Pendientes de verificación (no se pudo acceder a las fuentes desde el entorno d
       vs. manual EASE) y STI (IEC 60268-16 vs. manual SysTune). Valorar referencias cruzadas.
 - [ ] Taxonomía: unificar categorías casi duplicadas ("Meteorología / Acústica" vs. "Meteorología /
       Acústica Ambiental", "Medición" vs. "Metodología de Medición"...).
-- [ ] Fijar Tailwind (hoy Play CDN sin versión) o pasarlo a build-time.
 - [ ] Logo: sigue en el CDN de aweber (desde el entorno de agentes el host no resolvía el 2026-10-17);
       si falla se muestra `public/favicon.svg`. Subir el PNG original a `public/` cuando el dueño lo aporte.
 

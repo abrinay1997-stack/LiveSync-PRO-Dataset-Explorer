@@ -45,9 +45,12 @@ const searchIndex = new Map<string, string>(
   })
 );
 
-type KatexWindow = Window & { katex?: { renderToString: (tex: string, opts: object) => string } };
+type Katex = typeof import('katex').default;
 
-const KATEX_MAX_WAIT_MS = 8000;
+/** KaTeX empaquetado (sin CDN) y cargado bajo demanda: no pesa en la carga inicial. */
+let katexPromise: Promise<Katex> | null = null;
+const loadKatex = () =>
+  (katexPromise ??= Promise.all([import('katex'), import('katex/dist/katex.min.css')]).then(([m]) => m.default));
 
 const MathRenderer: React.FC<{ tex: string; fallback: string }> = ({ tex, fallback }) => {
   const [html, setHtml] = useState<string>('');
@@ -55,32 +58,19 @@ const MathRenderer: React.FC<{ tex: string; fallback: string }> = ({ tex, fallba
 
   useEffect(() => {
     let cancelled = false;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const started = Date.now();
     setHtml('');
     setFailed(false);
-
-    const renderMath = () => {
-      if (cancelled) return;
-      const katex = (window as KatexWindow).katex;
-      if (katex) {
-        try {
-          const cleanTex = tex.replace(/\$\$/g, '').trim();
-          setHtml(katex.renderToString(cleanTex, { throwOnError: false, displayMode: true, strict: false }));
-        } catch {
-          setFailed(true);
-        }
-      } else if (Date.now() - started < KATEX_MAX_WAIT_MS) {
-        // El script de KaTeX se carga con `defer`; se reintenta con un límite de tiempo.
-        timer = setTimeout(renderMath, 150);
-      } else {
-        setFailed(true);
-      }
-    };
-    renderMath();
+    loadKatex()
+      .then((katex) => {
+        if (cancelled) return;
+        const cleanTex = tex.replace(/\$\$/g, '').trim();
+        setHtml(katex.renderToString(cleanTex, { throwOnError: false, displayMode: true, strict: false }));
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
     return () => {
       cancelled = true;
-      if (timer) clearTimeout(timer);
     };
   }, [tex]);
 
