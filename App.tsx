@@ -5,12 +5,8 @@ import { Search, Filter, Database, Info, Activity, Menu, X, AlertTriangle, Check
 
 const CONCEPT_TYPES: ConceptType[] = ['Fórmula', 'Definición', 'Constante', 'Hallazgo'];
 
-/** Logo de la marca; si el CDN externo falla se usa el icono local (public/favicon.svg). */
-const LOGO_URL = 'https://hostedimages-cdn.aweber-static.com/MjM0MTQ0NQ==/optimized/20657f92efa544489526caee3beef9d2.png';
-const LOGO_FALLBACK = 'favicon.svg'; // relativo al documento: vale en / y en /ciencia/
-const useLocalLogo = (e: React.SyntheticEvent<HTMLImageElement>) => {
-  if (!e.currentTarget.src.endsWith('favicon.svg')) e.currentTarget.src = LOGO_FALLBACK;
-};
+/** Logo de la marca, local (relativo al documento: vale en / y en /ciencia/). Original del dueño, 256 px. */
+const LOGO_URL = 'logo-livesyncpro.png';
 
 /** Resuelve un id de concepto (vigente o fusionado) para los enlaces profundos `#id`. */
 const conceptById = new Map<string, Concept>();
@@ -344,7 +340,6 @@ export default function App() {
               <div className="absolute inset-0 bg-cyan-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity" aria-hidden="true"></div>
               <img
                 src={LOGO_URL}
-                onError={useLocalLogo}
                 alt="Logotipo de LiveSync Pro"
                 className="relative w-full h-full object-contain opacity-90"
               />
@@ -442,7 +437,6 @@ export default function App() {
                     <div className="absolute inset-0 bg-cyan-500 blur-lg opacity-30" aria-hidden="true"></div>
                     <img
                       src={LOGO_URL}
-                onError={useLocalLogo}
                       alt=""
                       className="relative w-full h-full object-contain"
                     />

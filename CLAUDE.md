@@ -32,7 +32,7 @@ Idioma: contenido, UI y documentación en **español**; código e identificadore
 - KaTeX 0.16.22 **empaquetado** (npm) y cargado bajo demanda (`import('katex')` + su CSS en
   `MathRenderer`, App.tsx): sin CDN, funciona sin conexión y permite una CSP estricta. Si la carga
   falla se muestra `formula_texto`.
-- Sin dependencias de terceros en runtime salvo el logo (ver pendientes).
+- Sin dependencias de terceros en runtime.
 
 ```bash
 npm ci                      # dependencias (package-lock.json versionado)
@@ -113,7 +113,7 @@ El archivo se regenera y se versiona en el mismo commit que cualquier cambio de 
 - **Plataforma unificada (destino final):** la app principal compila este repo con
   `vite build --outDir <app>/dist/ciencia` y lo sirve en `livesyncpro.com/ciencia/` (mismo Worker).
   Por eso `vite.config.ts` usa `base: './'` y todo recurso del HTML/JS debe ser **relativo**
-  (`favicon.svg`, no `/favicon.svg` en código; Vite reescribe el `index.html`). El CI de la app
+  (`logo-livesyncpro.png`, no `/logo-livesyncpro.png` en código; Vite reescribe el `index.html`). El CI de la app
   clona este repo (público) en cada despliegue: los cambios llegan a producción con el siguiente
   deploy de la app. El Worker propio `livesync-knowledge` queda como alternativa.
 - Netlify, Worker propio y plataforma conviven hasta el corte de DNS; después
@@ -140,8 +140,8 @@ Pendientes de verificación (no se pudo acceder a las fuentes desde el entorno d
       vs. manual EASE) y STI (IEC 60268-16 vs. manual SysTune). Valorar referencias cruzadas.
 - [ ] Taxonomía: unificar categorías casi duplicadas ("Meteorología / Acústica" vs. "Meteorología /
       Acústica Ambiental", "Medición" vs. "Metodología de Medición"...).
-- [ ] Logo: sigue en el CDN de aweber (desde el entorno de agentes el host no resolvía el 2026-10-17);
-      si falla se muestra `public/favicon.svg`. Subir el PNG original a `public/` cuando el dueño lo aporte.
+- [x] Logo local desde el 2026-10-19 (`public/logo-livesyncpro.png`, 256 px, del original del dueño; +
+      `favicon.png`, `apple-touch-icon.png`). Sin CDN de terceros en runtime.
 
 ## 9. Convenciones de trabajo
 
